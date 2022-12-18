@@ -14,7 +14,7 @@ export default function Layout({ children }) {
       <header>
         <NavBar />
       </header>
-      <Container xs={12}>
+      <Container maxWidth="lg">
         <main>{children}</main>
       </Container>
       <footer></footer>

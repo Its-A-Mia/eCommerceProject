@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "../styles/Home.module.css";
 import { CssBaseline, Typography, Grid } from "@mui/material";
-import NavBar from "../components/NavBar";
 import Button from "@mui/material/Button";
 import ButtonBase from "@mui/material/ButtonBase";
 import { Box } from "@mui/system";
@@ -14,7 +13,6 @@ export default function Home() {
       {/* <Head>
         <title></title>
       </Head> */}
-      <CssBaseline />
       <main>
         <Typography variant="h1" align="center" className={styles.homeh1}>
           eCommerce: One Stop Shop
