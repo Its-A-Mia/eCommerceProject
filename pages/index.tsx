@@ -2,10 +2,8 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "../styles/Home.module.css";
-import "@fontsource/roboto/300.css";
-import "@fontsource/roboto/400.css";
-import "@fontsource/roboto/500.css";
-import "@fontsource/roboto/700.css";
+import { CssBaseline, Typography } from "@mui/material";
+import NavBar from "../components/NavBar";
 
 export default function Home() {
   return (
@@ -16,17 +14,21 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <CssBaseline />
       <main>
-        <h1>Home Page</h1>
+        <NavBar />
+        <Typography variant="h1" align="center">
+          Home Page
+        </Typography>
         <ul>
           <li>
-            <Link href={"./products-list"}>Products List</Link>
+            <Link href={"/products-list"}>Products List</Link>
           </li>
           <li>
-            <Link href={"./cart"}>cart</Link>
+            <Link href={"/cart"}>cart</Link>
           </li>
           <li>
-            <Link href={"./auth"}>Login/Register</Link>
+            <Link href={"/auth"}>Login/Register</Link>
           </li>
         </ul>
       </main>
