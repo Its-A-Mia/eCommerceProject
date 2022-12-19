@@ -1,26 +1,23 @@
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import styles from "../styles/Home.module.css";
-import { CssBaseline, Typography, Grid } from "@mui/material";
+import headerStyles from "../styles/Headings.module.css";
+import { Typography, Grid } from "@mui/material";
 import Button from "@mui/material/Button";
-import ButtonBase from "@mui/material/ButtonBase";
-import { Box } from "@mui/system";
 
-export default function Home() {
+export default function () {
   return (
     <>
       {/* <Head>
         <title></title>
       </Head> */}
       <main>
-        <Typography variant="h1" align="center" className={styles.homeh1}>
+        <Typography variant="h1" align="center" className={headerStyles.h1}>
           eCommerce: One Stop Shop
         </Typography>
-
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <Typography variant="h2" align="center" className={styles.homeh2}>
+            <Typography variant="h2" align="center" className={headerStyles.h2}>
               Categories
             </Typography>
           </Grid>
