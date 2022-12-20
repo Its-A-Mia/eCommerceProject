@@ -1,6 +1,7 @@
 import { Container, Box } from "@mui/material";
 import Head from "next/head";
 import NavBar from "./NavBar";
+import AppBarNav from "./AppBarNav";
 
 export default function Layout({ children }) {
   return (
@@ -12,7 +13,10 @@ export default function Layout({ children }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <header>
-        <NavBar />
+        <Box display="flex" flexDirection="column">
+          <NavBar />
+          <AppBarNav />
+        </Box>
       </header>
       <Container maxWidth="lg">
         <Box display="flex" justifyContent="center">

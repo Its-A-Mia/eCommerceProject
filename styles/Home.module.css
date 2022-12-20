@@ -1,0 +1,29 @@
+.categoriesButton {
+  height: 150px;
+  color: white;
+  background: none;
+  font-weight: bold;
+  font-size: larger;
+}
+
+.categoriesButton:hover {
+  color: white;
+  background: inherit;
+}
+
+.tShirtBackground::before {
+  border-radius: inherit;
+  z-index: -1;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  content: " ";
+  background-image: url(../images/tshirt.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  filter: brightness(40%);
+}
+
+.tShirtBackground:hover .tShirtBackground::before {
+  transform: scale(5%);
+}

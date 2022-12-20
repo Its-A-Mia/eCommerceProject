@@ -1,8 +1,18 @@
 .linkStyle {
   text-decoration: none;
-  color: blue;
+  color: var(--font-color);
 }
 
 .linkStyle:hover {
+  text-decoration: underline;
+}
+
+.linkStyleAlternative {
+  text-decoration: none;
+  color: var(--font-color);
+  font-size: large;
+}
+
+.linkStyleAlternative:hover {
   text-decoration: underline;
 }
