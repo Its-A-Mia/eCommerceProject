@@ -12,12 +12,9 @@ export default function () {
         <title></title>
       </Head> */}
       <main>
-        <Typography variant="h1" align="center" className={headerStyles.h1}>
-          eCommerce: One Stop Shop
-        </Typography>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <Typography variant="h2" align="center" className={headerStyles.h2}>
+            <Typography variant="h2" align="center" fontWeight="bold" className={headerStyles.h2}>
               Categories
             </Typography>
           </Grid>
