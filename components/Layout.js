@@ -1,4 +1,4 @@
-import { Container } from "@mui/material";
+import { Container, Box } from "@mui/material";
 import Head from "next/head";
 import NavBar from "./NavBar";
 
@@ -15,7 +15,11 @@ export default function Layout({ children }) {
         <NavBar />
       </header>
       <Container maxWidth="lg">
-        <main>{children}</main>
+        <Box display="flex" justifyContent="center">
+          <main style={{ width: "100%", display: "inherit", justifyContent: "inherit" }}>
+            {children}
+          </main>
+        </Box>
       </Container>
       <footer></footer>
     </>
