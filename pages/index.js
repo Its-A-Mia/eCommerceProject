@@ -1,16 +1,10 @@
 import Image from "next/image";
 import homeStyles from "../styles/Home.module.css";
-import headerStyles from "../styles/Headings.module.css";
+import headerStyles from "../styles/Utils.module.css";
 import { Typography, Grid, Box } from "@mui/material";
 import Button from "@mui/material/Button";
 
 export default function () {
-  //   const buttonBackground = (bgStyle) => {
-  //     const bg = `${homeStyles.categoriesButton} ${bgStyle}`;
-  //     console.log(bg);
-  //     return bg;
-  //   };
-
   // iterate through to create category buttons using an array of categories
   const createCategoryButtons = (categoryArr) => {
     let categoryCards = [];
@@ -36,33 +30,33 @@ export default function () {
   let categoryArr = [
     {
       category: "T-Shirts",
-      href: "work-in-progress",
+      href: "/products/tops/t-shirts",
       style: `${homeStyles.categoriesButton}`,
     },
     {
       category: "Sweaters",
-      href: "work-in-progress",
-      style: `${homeStyles.categoriesButton} ${homeStyles.tShirtBackground}`,
+      href: "/products/tops/sweaters",
+      style: `${homeStyles.categoriesButton}`,
     },
     {
       category: "Hoodies",
-      href: "work-in-progress",
-      style: `${homeStyles.categoriesButton} ${homeStyles.tShirtBackground}`,
+      href: "/products/tops/hoodies",
+      style: `${homeStyles.categoriesButton}`,
     },
     {
       category: "Sweatpants",
-      href: "work-in-progress",
-      style: `${homeStyles.categoriesButton} ${homeStyles.tShirtBackground}`,
+      href: "/products/bottoms/sweatpants",
+      style: `${homeStyles.categoriesButton}`,
     },
     {
       category: "Jeans",
-      href: "work-in-progress",
-      style: `${homeStyles.categoriesButton} ${homeStyles.tShirtBackground}`,
+      href: "/products/bottoms/jeans",
+      style: `${homeStyles.categoriesButton}`,
     },
     {
       category: "Shoes",
-      href: "work-in-progress",
-      style: `${homeStyles.categoriesButton} ${homeStyles.tShirtBackground}`,
+      href: "/products/bottoms/shoes",
+      style: `${homeStyles.categoriesButton}`,
     },
   ];
 

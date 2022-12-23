@@ -1,0 +1,57 @@
+.h1 {
+  font-size: 3rem;
+}
+.h2 {
+  font-size: 2.5rem;
+}
+.h3 {
+  font-size: 2rem;
+}
+.h4 {
+  font-size: 1.5rem;
+}
+.h1,
+.h2,
+.h3,
+.h4 {
+  padding: 20px;
+}
+
+.NavBarlinkStyle {
+  text-decoration: none;
+  color: var(--font-color);
+}
+
+.NavBarlinkStyle:hover {
+  text-decoration: underline;
+}
+
+.NavBarlinkStyleAlternative {
+  text-decoration: none;
+  color: var(--font-color);
+  font-size: large;
+}
+
+.NavBarlinkStyleAlternative:hover {
+  text-decoration: underline;
+}
+
+.AppBarlinkStyle {
+  text-decoration: none;
+  color: white;
+}
+
+.BreadcrumbsLinkStyle {
+  text-decoration: none;
+  color: black;
+  font-size: medium;
+}
+
+.BreadcrumbsLinkStyle:hover {
+  text-decoration: underline;
+}
+
+.BreadcrumbsProductName {
+  color: black;
+  font-size: medium;
+}

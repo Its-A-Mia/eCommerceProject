@@ -1,6 +1,6 @@
 import { Box } from "@mui/system";
 import { Typography, TextField, Divider } from "@mui/material";
-import headerStyles from "../styles/Headings.module.css";
+import headerStyles from "../styles/Utils.module.css";
 import Link from "next/link";
 import Button from "@mui/material/Button";
 

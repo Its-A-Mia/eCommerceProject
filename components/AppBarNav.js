@@ -1,7 +1,7 @@
 import { Box } from "@mui/material/";
 import { Container } from "@mui/system";
 import Link from "next/link";
-import appBarNavStyles from "../styles/AppBarNav.module.css";
+import appBarNavStyles from "../styles/Utils.module.css";
 
 export default function AppBarNav() {
   const hiddenOnMobile = {
@@ -20,39 +20,35 @@ export default function AppBarNav() {
             padding="12px"
             sx={hiddenOnMobile}
           >
-            <Link href="/work-in-progress" className={appBarNavStyles.linkStyle}>
+            <Link href="/products/tops" className={appBarNavStyles.AppBarlinkStyle}>
               Tops
             </Link>
 
-            <Link href="/work-in-progress" className={appBarNavStyles.linkStyle}>
+            <Link href="/products/bottoms" className={appBarNavStyles.AppBarlinkStyle}>
               Bottoms
             </Link>
 
-            <Link href="/work-in-progress" className={appBarNavStyles.linkStyle}>
-              Intimates
-            </Link>
-
-            <Link href="/work-in-progress" className={appBarNavStyles.linkStyle}>
+            <Link href="/products/bottoms/shoes" className={appBarNavStyles.AppBarlinkStyle}>
               Shoes
             </Link>
 
-            <Link href="/work-in-progress" className={appBarNavStyles.linkStyle}>
+            <Link href="/work-in-progress" className={appBarNavStyles.AppBarlinkStyle}>
               Winter
             </Link>
 
-            <Link href="/work-in-progress" className={appBarNavStyles.linkStyle}>
+            <Link href="/work-in-progress" className={appBarNavStyles.AppBarlinkStyle}>
               Deals
             </Link>
 
-            <Link href="/work-in-progress" className={appBarNavStyles.linkStyle}>
+            <Link href="/work-in-progress" className={appBarNavStyles.AppBarlinkStyle}>
               Services
             </Link>
 
-            <Link href="/work-in-progress" className={appBarNavStyles.linkStyle}>
+            <Link href="/work-in-progress" className={appBarNavStyles.AppBarlinkStyle}>
               Membership
             </Link>
 
-            <Link href="/work-in-progress" className={appBarNavStyles.linkStyle}>
+            <Link href="/work-in-progress" className={appBarNavStyles.AppBarlinkStyle}>
               Locations
             </Link>
           </Box>

@@ -1,10 +1,8 @@
-import Layout from "../components/Layout";
+import PrimaryLayout from "../components/PrimaryLayout";
 import "../styles/globals.css";
 
 export default function App({ Component, pageProps }) {
-  return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
-  );
+  const renderWithLayout = Component.getLayout || ((page) => <PrimaryLayout>{page}</PrimaryLayout>);
+
+  return renderWithLayout(<Component {...pageProps} />);
 }
