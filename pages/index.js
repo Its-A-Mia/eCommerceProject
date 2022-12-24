@@ -1,8 +1,20 @@
 import Image from "next/image";
+
+import tShirtBG from "../images/tshirts.png";
+import hoodiesBG from "../images/hoodies.png";
+import jeansBG from "../images/jeans.png";
+import shoesBG from "../images/shoes.png";
+import sweatersBG from "../images/sweaters.png";
+import sweatpantsBG from "../images/sweatpants.png";
+
 import homeStyles from "../styles/Home.module.css";
 import headerStyles from "../styles/Utils.module.css";
 import { Typography, Grid, Box } from "@mui/material";
 import Button from "@mui/material/Button";
+
+// background-position: center;
+//   background-size: cover;
+//   background-repeat: no-repeat;
 
 export default function () {
   // iterate through to create category buttons using an array of categories
@@ -18,6 +30,12 @@ export default function () {
             fullWidth
             size="large"
           >
+            <div
+              className={homeStyles.categoriesButtonBackground}
+              style={{
+                backgroundImage: `url(${categoryArr[i].backgroundImagePath.src})`,
+              }}
+            ></div>
             {categoryArr[i].category}
           </Button>
         </Grid>
@@ -32,31 +50,37 @@ export default function () {
       category: "T-Shirts",
       href: "/products/tops/t-shirts",
       style: `${homeStyles.categoriesButton}`,
+      backgroundImagePath: tShirtBG,
     },
     {
       category: "Sweaters",
       href: "/products/tops/sweaters",
       style: `${homeStyles.categoriesButton}`,
+      backgroundImagePath: sweatersBG,
     },
     {
       category: "Hoodies",
       href: "/products/tops/hoodies",
       style: `${homeStyles.categoriesButton}`,
+      backgroundImagePath: hoodiesBG,
     },
     {
       category: "Sweatpants",
       href: "/products/bottoms/sweatpants",
       style: `${homeStyles.categoriesButton}`,
+      backgroundImagePath: sweatpantsBG,
     },
     {
       category: "Jeans",
       href: "/products/bottoms/jeans",
       style: `${homeStyles.categoriesButton}`,
+      backgroundImagePath: jeansBG,
     },
     {
       category: "Shoes",
       href: "/products/bottoms/shoes",
       style: `${homeStyles.categoriesButton}`,
+      backgroundImagePath: shoesBG,
     },
   ];
 

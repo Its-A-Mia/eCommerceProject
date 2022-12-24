@@ -1,5 +1,5 @@
 .categoriesButton {
-  height: 150px;
+  height: 233px;
   color: white;
   font-weight: bold;
   font-size: larger;
@@ -8,17 +8,14 @@
   transform: all 0.5s;
 }
 
-.categoriesButton::before {
-  content: "";
-  border-radius: inherit;
-  z-index: -1;
+.categoriesButtonBackground {
   position: absolute;
   height: 100%;
   width: 100%;
-  background-image: url(../images/tshirt.jpg);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  z-index: -1;
   filter: brightness(30%);
   transition: transform 0.5s, filter 1s;
 }
@@ -28,8 +25,8 @@
   margin: 0;
 }
 
-.categoryGrid:hover .categoriesButton::before,
-.categoryGrid:focus .categoriesButton::before {
+.categoryGrid:hover .categoriesButtonBackground,
+.categoryGrid:focus .categoriesButtonBackground {
   transform: scale(1.2);
   filter: brightness(100%);
 }
