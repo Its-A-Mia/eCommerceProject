@@ -16,10 +16,6 @@ import { useState } from "react";
 export default function ProductsTitle(props) {
   const [sortBy, setSortBy] = useState("Best Match");
 
-  const handleSortByInput = (event) => {
-    setSortBy(event.target.value);
-  };
-
   // category name, sort by, chips, grid/tile view, showing n1-n^n
 
   return (
@@ -42,7 +38,7 @@ export default function ProductsTitle(props) {
               labelId="sort-by-selection"
               id="sort-by-selection"
               value={sortBy}
-              onChange={handleSortByInput}
+              onChange={(e) => setSortBy(e.target.value)}
             >
               <MenuItem value="Best Match">Best Match</MenuItem>
               <MenuItem value="Price (High to Low)">Price (High to Low)</MenuItem>

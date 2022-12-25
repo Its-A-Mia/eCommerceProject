@@ -1,6 +1,6 @@
 import { Grid, Box, Divider, TextField, Icon } from "@mui/material";
 import { Container } from "@mui/system";
-import eShopLogo from "../images/eShop.png";
+import eShopLogo from "../public/images/eShop.png";
 import Link from "next/link";
 import Image from "next/image";
 import navBarStyles from "../styles/Utils.module.css";
