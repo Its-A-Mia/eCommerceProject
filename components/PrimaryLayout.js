@@ -18,7 +18,7 @@ export default function Layout({ children }) {
           <AppBarNav />
         </Box>
       </header>
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" sx={{ paddingTop: "20px" }}>
         <Box display="flex" justifyContent="center">
           <main style={{ width: "100%", display: "inherit", justifyContent: "inherit" }}>
             {children}

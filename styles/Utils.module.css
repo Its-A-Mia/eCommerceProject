@@ -55,3 +55,7 @@
   color: black;
   font-size: medium;
 }
+
+.selectStyle {
+  max-height: 40px;
+}

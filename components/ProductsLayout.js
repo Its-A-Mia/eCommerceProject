@@ -11,7 +11,7 @@ export default function ProductsLayout({ children, productsPage }) {
   // category name, sort by, grid/list view, chips
   return (
     <>
-      <Grid container spacing={2} paddingTop="20px">
+      <Grid container spacing={3}>
         <Grid item xs={12} md={12}>
           <Breadcrumbs sx={{ display: "flex", alignItems: "center" }}>
             <Link href="/" className={utilStyles.BreadcrumbsLinkStyle}>
@@ -32,10 +32,15 @@ export default function ProductsLayout({ children, productsPage }) {
           <ProductsFilter />
         </Grid>
         <Grid item md={9}>
-          <ProductsTitle categoryTitle={productsPage.name} />
+          <Grid container spacing={4}>
+            <Grid item md={12}>
+              <ProductsTitle categoryTitle={productsPage.name} />
+            </Grid>
+            <Grid item md={12} marginLeft="18px">
+              {children}
+            </Grid>
+          </Grid>
         </Grid>
-
-        {children}
       </Grid>
     </>
   );

@@ -8,8 +8,7 @@ import sweatersBG from "../images/sweaters.png";
 import sweatpantsBG from "../images/sweatpants.png";
 
 import homeStyles from "../styles/Home.module.css";
-import headerStyles from "../styles/Utils.module.css";
-import { Typography, Grid, Box } from "@mui/material";
+import { Grid } from "@mui/material";
 import Button from "@mui/material/Button";
 
 // background-position: center;
@@ -84,14 +83,12 @@ export default function () {
     },
   ];
 
-  console.log(headerStyles.categoriesButton);
-
   //construct categories
   let categoryButtonArr = createCategoryButtons(categoryArr);
 
   return (
     <>
-      <Grid container spacing={2} marginTop="60px">
+      <Grid container spacing={2} marginTop="40px">
         {categoryButtonArr}
       </Grid>
     </>
