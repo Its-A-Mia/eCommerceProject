@@ -1,11 +1,11 @@
 import Image from "next/image";
 
-import tShirtBG from "../images/tshirts.png";
-import hoodiesBG from "../images/hoodies.png";
-import jeansBG from "../images/jeans.png";
-import shoesBG from "../images/shoes.png";
-import sweatersBG from "../images/sweaters.png";
-import sweatpantsBG from "../images/sweatpants.png";
+import tShirtBG from "../public/images/tshirts.png";
+import hoodiesBG from "../public/images/hoodies.png";
+import jeansBG from "../public/images/jeans.png";
+import shoesBG from "../public/images/shoes.png";
+import sweatersBG from "../public/images/sweaters.png";
+import sweatpantsBG from "../public/images/sweatpants.png";
 
 import homeStyles from "../styles/Home.module.css";
 import { Grid } from "@mui/material";
