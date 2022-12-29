@@ -1,10 +1,23 @@
+import { useState } from "react";
 import { Box } from "@mui/system";
-import { Typography, TextField, Divider } from "@mui/material";
+import {
+  Typography,
+  TextField,
+  Divider,
+  FormControl,
+  OutlinedInput,
+  InputAdornment,
+  IconButton,
+  InputLabel,
+} from "@mui/material";
 import headerStyles from "../styles/Utils.module.css";
 import Link from "next/link";
 import Button from "@mui/material/Button";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 export default function cart() {
+  const [showPassword, setShowPassword] = useState(false);
+
   return (
     <>
       <Box width="60%">
@@ -12,15 +25,36 @@ export default function cart() {
           Sign In
         </Typography>
         <Box display="flex" border="gray solid 2px" p="20px" flexDirection="column" gap="20px">
-          <TextField id="outlined" fullWidth label="Email Address" required />
-          <TextField id="outlined" fullWidth label="Password" required />
+          <FormControl fullWidth>
+            <TextField id="outlined" fullWidth label="Email Address" required />
+          </FormControl>
+          <FormControl fullWidth>
+            <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+            <OutlinedInput
+              id="filled-adornment-password"
+              type={showPassword ? "text" : "password"}
+              label="Password"
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={() => setShowPassword(!showPassword)}
+                    onMouseDown={(e) => e.preventDefault}
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+              required
+            />
+          </FormControl>
           <Link href="/work-in-progress">Forgot your password?</Link>
           <Button variant="contained" href="/work-in-progress" fullWidth>
             Sign In
           </Button>
           <Divider />
-          <Typography>New to eCommerce World?</Typography>
-          <Button variant="outlined" href="/work-in-progress" fullWidth>
+          <Typography>New to eShop?</Typography>
+          <Button variant="outlined" href="/signup" fullWidth>
             Create Account
           </Button>
         </Box>

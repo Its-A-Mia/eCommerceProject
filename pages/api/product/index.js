@@ -52,5 +52,7 @@ export default async function handler(req, res) {
       where: queryObject,
     });
     res.json({ allProducts, nbHits: allProducts.length });
+  } else {
+    throw new Error(`The HTTP ${req.method} method is not suported at this route`);
   }
 }
