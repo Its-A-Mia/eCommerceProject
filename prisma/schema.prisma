@@ -20,10 +20,10 @@ model Product {
 }
 
 model User {
-  id String @default(cuid()) @id
-  name  String?
-  email String
-  hash String
-  createdAt DateTime @default(now()) @map(name: "created_at") 
+  id          String @default(cuid()) @id
+  name        String
+  email       String @unique
+  hash        String
+  createdAt   DateTime @default(now()) @map(name: "created_at") 
   updatedAt   DateTime @updatedAt
 }
