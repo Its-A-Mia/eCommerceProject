@@ -14,7 +14,7 @@ import {
 import utilStyles from "../styles/Utils.module.css";
 import Link from "next/link";
 import { useState } from "react";
-import { LocalLaundryService, Visibility, VisibilityOff } from "@mui/icons-material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import axios from "axios";
 
 export default function SignUp() {
