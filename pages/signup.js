@@ -18,17 +18,17 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import axios from "axios";
 
 export default function SignUp() {
-  //sets state for name
+  //sets state for name; might not need this
   const [name, setName] = useState(null);
 
-  //sets state for email input
+  //sets state for email input; might not need this
   const [email, setEmail] = useState(null);
 
   //sets state for password/showing hidden password
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [password, setPassword] = useState(null);
-  const [confirmPassword, setConfirmPassword] = useState(null);
+  const [password, setPassword] = useState(null); // might not need this
+  const [confirmPassword, setConfirmPassword] = useState(null); // might not need this
 
   //validation states for each input
   const [nameValidated, setNameValidated] = useState(false);
@@ -110,10 +110,11 @@ export default function SignUp() {
     if (emailValidated === false || passwordValidated === false || nameValidated === false) {
       return;
     }
+    // once all sections are validated, pass through to submit the form
 
     try {
       const result = await axios.post("/api/user", {
-        //verbose to show what is being sent
+        //verbose destructuring to show what is being sent
         name: name,
         email: email,
         password: password,
@@ -124,8 +125,6 @@ export default function SignUp() {
       console.log(error);
     }
   };
-
-  // if validated setAllowSubmit?
 
   return (
     <>
