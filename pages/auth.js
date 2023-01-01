@@ -16,8 +16,6 @@ import Button from "@mui/material/Button";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 export default function Auth() {
-  // if token is available, change logged in state to true?
-
   const [showPassword, setShowPassword] = useState(false);
 
   return (

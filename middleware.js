@@ -1,23 +1,27 @@
 import { NextResponse, NextRequest } from "next/server";
-const jwt = require("jsonwebtoken");
+import verifyAuth from "./lib/auth";
 
 export async function middleware(NextRequest) {
   const authHeader = NextRequest.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    return NextResponse(JSON.stringify({ error: "Authentication failed." })).redirect("/auth");
+    return new NextResponse(JSON.stringify({ error: "Authentication failed." }));
   }
 
-  const token = authHeader.split(" ")[1];
+  const unverifiedToken = authHeader.split(" ")[1];
 
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const { id } = decoded;
-    req.user = { id };
-    return NextResponse.next();
-  } catch (error) {
-    return NextResponse(JSON.stringify({ error: "Authentication failed." })).redirect("/auth");
-  }
+  const verifiedToken = await verifyAuth(unverifiedToken).catch((err) => {
+    console.log(err.message);
+
+    if (!verifiedToken) {
+      if (NextRequest.nexUrl.pathname.startsWith("/api")) {
+        return new NextResponse(
+          JSON.stringify({ error: { message: "Authentication required." } }, { status: 401 })
+        );
+      }
+    }
+    return NextRequest.redirect(new URL("/", NextRequest.URL));
+  });
 }
 
 export const config = {
