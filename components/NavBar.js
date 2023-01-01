@@ -42,7 +42,7 @@ export default function NavBar() {
                   Sign In / Register
                 </Link>
                 <Divider orientation="vertical" flexItem />
-                <Link href="/work-in-progress" className={navBarStyles.NavBarlinkStyleAlternative}>
+                <Link href="/orders" className={navBarStyles.NavBarlinkStyleAlternative}>
                   Orders
                 </Link>
 
