@@ -20,7 +20,6 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { signupActions } from "../store/signup-slice";
-import { redirect } from "next/dist/server/api-utils";
 
 export default function SignUp() {
   // grab dispatch from Redux
@@ -105,11 +104,7 @@ export default function SignUp() {
               required
             />
             <FormControl fullWidth>
-              <InputLabel
-                htmlFor="outlined-adornment-password"
-                helperText={showPasswordError ? passwordHelperText : null}
-                required
-              >
+              <InputLabel htmlFor="outlined-adornment-password" required>
                 Password
               </InputLabel>
               <OutlinedInput

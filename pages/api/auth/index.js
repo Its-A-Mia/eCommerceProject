@@ -6,6 +6,8 @@ export default async function handler(req, res) {
   if (req.method === "POST") {
     const { email, password } = req.body;
 
+    console.log(email, password);
+
     const existingUser = await prisma.user.findFirst({
       where: { email: email },
     });
@@ -25,6 +27,7 @@ export default async function handler(req, res) {
     const token = await new SignJWT({ id: existingUser.id })
       .setProtectedHeader({ alg: "HS256" })
       .setExpirationTime("15m")
+      .setIssuedAt()
       .sign(new TextEncoder().encode(process.env.JWT_SECRET));
 
     res.json({ token });
