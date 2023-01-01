@@ -11,6 +11,15 @@ export default async function handler(req, res) {
       throw new Error("Please provide name, email and password");
     }
 
+    const existingEmail = await prisma.user.findFirst({
+      where: { email: email },
+    });
+
+    if (existingEmail) {
+      res.status(500).send("This email already in use. Please use a different one.");
+      return;
+    }
+
     const postResult = await prisma.user.create({
       data: {
         name,

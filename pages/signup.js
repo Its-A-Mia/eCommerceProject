@@ -1,4 +1,5 @@
 import {
+  Alert,
   Box,
   Button,
   Divider,
@@ -10,108 +11,53 @@ import {
   OutlinedInput,
   TextField,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import utilStyles from "../styles/Utils.module.css";
 import Link from "next/link";
 import { useState } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { signupActions } from "../store/signup-slice";
+import { redirect } from "next/dist/server/api-utils";
 
 export default function SignUp() {
-  //sets state for name; might not need this
+  // grab dispatch from Redux
+  const dispatch = useDispatch();
+  // mediaQuery for RWD
+  const matches = useMediaQuery("(min-width: 600px)");
+  // Grab needed states from redux store
+  const showNameError = useSelector((state) => state.signup.showNameError);
+  const showEmailError = useSelector((state) => state.signup.showEmailError);
+  const showPasswordError = useSelector((state) => state.signup.showPasswordError);
+  const nameHelperText = useSelector((state) => state.signup.nameHelperText);
+  const emailHelperText = useSelector((state) => state.signup.emailHelperText);
+  const passwordHelperText = useSelector((state) => state.signup.passwordHelperText);
+  const nameValidated = useSelector((state) => state.signup.nameValidated);
+  const emailValidated = useSelector((state) => state.signup.emailValidated);
+  const passwordValidated = useSelector((state) => state.signup.passwordValidated);
+
+  // create states for page inputs
   const [name, setName] = useState(null);
-
-  //sets state for email input; might not need this
   const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
+  const [confirmPassword, setConfirmPassword] = useState(null);
 
-  //sets state for password/showing hidden password
+  // sets state for password/showing hidden password
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [password, setPassword] = useState(null); // might not need this
-  const [confirmPassword, setConfirmPassword] = useState(null); // might not need this
 
-  //validation states for each input
-  const [nameValidated, setNameValidated] = useState(false);
-  const [emailValidated, setEmailValidated] = useState(false);
-  const [passwordValidated, setPasswordValidated] = useState(false);
+  // catch error output states
+  const [createAcctErr, setCreateAcctErr] = useState(null);
+  const [errSeverity, setErrSeverity] = useState(null);
 
-  //states to show specific input error
-  const [showNameError, setShowNameError] = useState(false);
-  const [showEmailError, setShowEmailError] = useState(false);
-  const [showPasswordError, setShowPasswordError] = useState(false);
-
-  //error helperText to display
-  const [nameHelperText, setNameHelperText] = useState(null);
-  const [emailHelperText, setEmailHelperText] = useState(null);
-  const [passwordHelperText, setPasswordHelperText] = useState(null);
-
-  const nameValidation = () => {
-    // validates name input
-    if (!name) {
-      setNameValidated(false);
-      setShowNameError(true);
-      setNameHelperText("Name is required");
-      return;
-    }
-    // reset
-    setNameValidated(true);
-    // validation passed
-    setShowNameError(false);
-  };
-
-  const emailValidation = (e) => {
-    // check for no email input
-    if (!email) {
-      setEmailValidated(false);
-      setShowEmailError(true);
-      setEmailHelperText("Email is required");
-      return;
-    }
-
-    // validates email input
-    const emailRegex =
-      /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
-    if (emailRegex.test(email) === false) {
-      setEmailValidated(false);
-      setShowEmailError(true);
-      setEmailHelperText("Invalid Email");
-      return;
-    }
-    // reset
-    setShowEmailError(false);
-    // validation passed
-    setEmailValidated(true);
-  };
-
-  const passwordValidation = () => {
-    // checks for no password input
-    if (!password) {
-      setPasswordValidated(false);
-      setShowPasswordError(true);
-      setPasswordHelperText("Password is required");
-      return;
-    }
-
-    // validates passwords match
-    if (password !== confirmPassword) {
-      setPasswordValidated(false);
-      setShowPasswordError(true);
-      setPasswordHelperText("Passwords must match");
-      return;
-    }
-    // reset
-    setPasswordHelperText(null);
-    setShowPasswordError(false);
-    // Validation Passed
-    setPasswordValidated(true);
-  };
-
+  // post account to db
   const handleSubmit = async () => {
     if (emailValidated === false || passwordValidated === false || nameValidated === false) {
       return;
     }
     // once all sections are validated, pass through to submit the form
-
     try {
       const result = await axios.post("/api/user", {
         //verbose destructuring to show what is being sent
@@ -119,10 +65,12 @@ export default function SignUp() {
         email: email,
         password: password,
       });
-
-      console.log(result);
+      setCreateAcctErr("Account creation successful! You will be redirected to the login page...");
+      setErrSeverity("success");
+      setTimeout(() => (window.location = "/auth"), 2000);
     } catch (error) {
-      console.log(error);
+      setCreateAcctErr(error.request.response);
+      setErrSeverity("error");
     }
   };
 
@@ -141,7 +89,7 @@ export default function SignUp() {
               error={showNameError}
               helperText={showNameError ? nameHelperText : null}
               onKeyUp={(e) => setName(e.target.value)}
-              onBlur={() => nameValidation()}
+              onBlur={() => dispatch(signupActions.nameValidation({ name: name }))}
               fullWidth
               required
             />
@@ -152,7 +100,7 @@ export default function SignUp() {
               error={showEmailError}
               helperText={showEmailError ? emailHelperText : null}
               onKeyUp={(e) => setEmail(e.target.value)}
-              onBlur={(e) => emailValidation(e)}
+              onBlur={() => dispatch(signupActions.emailValidation({ email }))}
               fullWidth
               required
             />
@@ -170,8 +118,10 @@ export default function SignUp() {
                 type={showPassword ? "text" : "password"}
                 label="Password"
                 error={showPasswordError}
-                onBlur={(e) => passwordValidation(e)}
                 onKeyUp={(e) => setPassword(e.target.value)}
+                onBlur={() =>
+                  dispatch(signupActions.passwordValidation({ password, confirmPassword }))
+                }
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton
@@ -199,8 +149,10 @@ export default function SignUp() {
                 label="Confirm Password"
                 name="confirmedPassword"
                 error={showPasswordError}
-                onBlur={passwordValidation}
                 onKeyUp={(e) => setConfirmPassword(e.target.value)}
+                onBlur={() =>
+                  dispatch(signupActions.passwordValidation({ password, confirmPassword }))
+                }
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton
@@ -219,6 +171,7 @@ export default function SignUp() {
               Create Account
             </Button>
           </FormControl>
+          {!createAcctErr ? null : <Alert severity={errSeverity}>{createAcctErr}</Alert>}
 
           <Divider />
           <Box display="flex" gap="5px">
