@@ -5,8 +5,18 @@ import Link from "next/link";
 import Image from "next/image";
 import navBarStyles from "../styles/Utils.module.css";
 import ShoppingCartSharpIcon from "@mui/icons-material/ShoppingCartSharp";
+import { useState } from "react";
 
 export default function NavBar(props) {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  if (isLoggedIn === false) {
+    // since the request is dropped for renders following intial reload, this state locks in the profile button until token expires
+    if (props.authOrProfile === "profile") {
+      setIsLoggedIn(true);
+    }
+  }
+
   const hiddenOnMobile = {
     display: { xs: "none", sm: "none", md: "flex" },
   };
@@ -39,13 +49,13 @@ export default function NavBar(props) {
             >
               <Box display="flex" gap="50px">
                 <Link
-                  href={props.authOrProfile.href}
+                  href={isLoggedIn ? "/protected/profile" : "/auth"}
                   className={navBarStyles.NavBarlinkStyleAlternative}
                 >
-                  {props.authOrProfile.linkText}
+                  {isLoggedIn ? "Profile" : "Sign In / Register"}
                 </Link>
                 <Divider orientation="vertical" flexItem />
-                <Link href="/orders" className={navBarStyles.NavBarlinkStyleAlternative}>
+                <Link href="/protected/orders" className={navBarStyles.NavBarlinkStyleAlternative}>
                   Orders
                 </Link>
 
