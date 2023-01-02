@@ -6,7 +6,7 @@ import Image from "next/image";
 import navBarStyles from "../styles/Utils.module.css";
 import ShoppingCartSharpIcon from "@mui/icons-material/ShoppingCartSharp";
 
-export default function NavBar() {
+export default function NavBar(props) {
   const hiddenOnMobile = {
     display: { xs: "none", sm: "none", md: "flex" },
   };
@@ -38,8 +38,11 @@ export default function NavBar() {
               sx={hiddenOnMobile}
             >
               <Box display="flex" gap="50px">
-                <Link href="/auth" className={navBarStyles.NavBarlinkStyleAlternative}>
-                  Sign In / Register
+                <Link
+                  href={props.authOrProfile.href}
+                  className={navBarStyles.NavBarlinkStyleAlternative}
+                >
+                  {props.authOrProfile.linkText}
                 </Link>
                 <Divider orientation="vertical" flexItem />
                 <Link href="/orders" className={navBarStyles.NavBarlinkStyleAlternative}>
