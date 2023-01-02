@@ -2,8 +2,10 @@ import prisma from "../../../lib/prisma";
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
+    // gather product info
     const { title, price, category, description } = req.body;
 
+    // create product--should return error, will have to add later
     const postResult = await prisma.product.create({
       data: {
         title,
@@ -12,11 +14,16 @@ export default async function handler(req, res) {
         description,
       },
     });
+
+    // return created product
     res.json(postResult);
   } else if (req.method === "GET") {
+    // grab request queries
     const { title, category, description, numericFilters } = req.query;
+    // initialize object to store queries
     const queryObject = {};
 
+    // each conditional statement checks for query value, then stores it as a property in queryObject
     if (title) {
       queryObject.title = title;
     }
@@ -29,6 +36,7 @@ export default async function handler(req, res) {
       queryObject.description = description;
     }
 
+    // must parse out numeric queries
     if (numericFilters) {
       const operatorMap = {
         ">": "gt",
@@ -48,9 +56,12 @@ export default async function handler(req, res) {
       });
     }
 
+    // search DB using queryObject to describe parameters
     const allProducts = await prisma.product.findMany({
       where: queryObject,
     });
+
+    // return results
     res.json({ allProducts, nbHits: allProducts.length });
   } else {
     throw new Error(`The HTTP ${req.method} method is not suported at this route`);

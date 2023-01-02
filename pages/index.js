@@ -21,7 +21,7 @@ export default function () {
     let categoryCards = [];
     for (let i = 0; i < categoryArr.length; i++) {
       categoryCards.push(
-        <Grid item xs={12} sm={6} md={4} className={homeStyles.categoryGrid}>
+        <Grid key={i} item xs={12} sm={6} md={4} className={homeStyles.categoryGrid}>
           <Button
             href={categoryArr[i].href}
             className={`${categoryArr[i].style}`}

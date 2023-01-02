@@ -59,7 +59,6 @@ export default function Auth() {
 
       setCreateAcctErr("Login successful! You will be redirected to the home page...");
       setErrSeverity("success");
-      dispatch(authActions.setLoggedIn(true));
       setTimeout(() => (window.location = "/"), 2000);
     } catch (error) {
       setCreateAcctErr(error.request.response);
