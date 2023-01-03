@@ -1,7 +1,7 @@
 import { Box } from "@mui/material/";
 import { Container } from "@mui/system";
 import Link from "next/link";
-import appBarNavStyles from "../styles/Utils.module.css";
+import appBarNavStyles from "../styles/utils.module.css";
 
 export default function AppBarNav() {
   const hiddenOnMobile = {

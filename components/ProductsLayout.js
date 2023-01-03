@@ -2,7 +2,7 @@ import ProductsFilter from "./ProductsFilter";
 import ProductsTitle from "./ProductsTitle";
 import { Breadcrumbs, Typography, Grid } from "@mui/material";
 
-import utilStyles from "../styles/Utils.module.css";
+import utilStyles from "../styles/utils.module.css";
 import Link from "next/link";
 
 export default function ProductsLayout({ children, productsPage }) {

@@ -10,7 +10,6 @@ import {
   Divider,
 } from "@mui/material";
 import { ExpandMore, ExpandLess } from "@mui/icons-material";
-import utilStyles from "../styles/Utils.module.css";
 
 export default function FilterProducts() {
   const [openCategory, setOpenCategory] = React.useState(false);

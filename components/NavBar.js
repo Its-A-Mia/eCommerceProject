@@ -3,7 +3,7 @@ import { Container } from "@mui/system";
 import eShopLogo from "../public/images/eShop.png";
 import Link from "next/link";
 import Image from "next/image";
-import navBarStyles from "../styles/Utils.module.css";
+import navBarStyles from "../styles/utils.module.css";
 import ShoppingCartSharpIcon from "@mui/icons-material/ShoppingCartSharp";
 import { useState } from "react";
 

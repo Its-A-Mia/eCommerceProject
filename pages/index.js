@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 import tShirtBG from "../public/images/tshirts.png";
 import hoodiesBG from "../public/images/hoodies.png";
 import jeansBG from "../public/images/jeans.png";

@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import WindowIcon from "@mui/icons-material/Window";
 import ViewStreamIcon from "@mui/icons-material/ViewStream";
-import utilStyles from "../styles/Utils.module.css";
+import utilStyles from "../styles/utils.module.css";
 import { useState } from "react";
 
 export default function ProductsTitle(props) {

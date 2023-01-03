@@ -13,7 +13,7 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import utilStyles from "../styles/Utils.module.css";
+import utilStyles from "../styles/utils.module.css";
 import Link from "next/link";
 import { useState } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
