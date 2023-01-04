@@ -1,6 +1,6 @@
 import ProductsLayout from "../../../components/ProductsLayout";
-import { Card, CardActionArea, CardContent, CardMedia, Grid, Typography } from "@mui/material";
-import productStyles from "../../../styles/products.module.css";
+import { Grid } from "@mui/material";
+import useCreateProductCards from "../../../components/customHooks/useCreateProdCards";
 
 export const getStaticProps = async () => {
   const res = await fetch("https://fakestoreapi.com/products");
@@ -13,23 +13,13 @@ export const getStaticProps = async () => {
 export default function Jeans({ products }) {
   const productInfo = { name: "Jeans", path: "Bottoms" };
 
+  const productCards = useCreateProductCards(products);
+
   return (
     <>
       <ProductsLayout productsPage={productInfo}>
         <Grid container spacing={2}>
-          {products.map((product) => (
-            <Grid item xs={12} sm={6} md={4} className={productStyles.productCard} key={product.id}>
-              <Card sx={{ width: "100%", height: "100%" }}>
-                <CardActionArea>
-                  <CardMedia component="img" height="270" image={product.image} />
-                  <CardContent>
-                    <Typography>{product.title}</Typography>
-                    <Typography fontWeight="bold">${product.price}</Typography>
-                  </CardContent>
-                </CardActionArea>
-              </Card>
-            </Grid>
-          ))}
+          {productCards}
         </Grid>
       </ProductsLayout>
     </>
