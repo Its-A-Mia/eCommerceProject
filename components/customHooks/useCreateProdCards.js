@@ -10,30 +10,11 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
+import { useDispatch } from "react-redux";
+import { cartActions } from "../../store/cart-slice";
 
 export default function createProdCards(products) {
-  //   will move this functionality to a redux slice?
-
-  const addToCart = (key) => {
-    // pull item if there
-    const cartItemFromLS = JSON.parse(localStorage.getItem(`CART-ITEM ${key}`));
-
-    // store item if null
-    if (!cartItemFromLS) {
-      localStorage.setItem(`CART-ITEM ${key}`, JSON.stringify({ key, amtOf: 1 }));
-      return;
-    }
-
-    // otherwise add more of it to cart
-    if (cartItemFromLS.amtOf >= 1) {
-      localStorage.removeItem(`CART-ITEM ${key}`);
-      cartItemFromLS.amtOf += 1;
-      localStorage.setItem(
-        `CART-ITEM ${key}`,
-        JSON.stringify({ key, amtOf: cartItemFromLS.amtOf })
-      );
-    }
-  };
+  const dispatch = useDispatch();
 
   const productCards = products.map((product) => (
     <Grid item xs={12} sm={6} md={4} className={productStyles.productCard} key={product.id}>
@@ -60,7 +41,7 @@ export default function createProdCards(products) {
             <Typography alignSelf="flex-start">{product.title}</Typography>
             <Box width="100%" display="flex" flexDirection="column" alignItems="center" gap="8px">
               <Typography alignSelf="flex-start" fontWeight="bold">
-                ${product.price}
+                ${product.price.toFixed(2)}
               </Typography>
               <Rating name="read-only" readOnly sx={{ alignSelf: "flex-start" }} />
             </Box>
@@ -68,7 +49,7 @@ export default function createProdCards(products) {
         </CardActionArea>
         <Button
           variant="contained"
-          onClick={() => addToCart(product.id)}
+          onClick={() => dispatch(cartActions.addToCart({ id: product.id }))}
           fullWidth
           sx={{ alignSelf: "flex-start" }}
         >
