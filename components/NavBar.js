@@ -5,17 +5,34 @@ import Link from "next/link";
 import Image from "next/image";
 import navBarStyles from "../styles/utils.module.css";
 import ShoppingCartSharpIcon from "@mui/icons-material/ShoppingCartSharp";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function NavBar(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  let userToken = "userToken";
 
-  if (isLoggedIn === false) {
-    // since the request is dropped for renders following intial reload, this state locks in the profile button until token expires
-    if (props.authOrProfile === "profile") {
-      setIsLoggedIn(true);
+  useEffect(() => {
+    // grab all cookies
+    const cookies = document.cookie;
+    // parse cookies
+    const parsedCookies = cookies.split(";").map((cookie) => cookie.split("="));
+
+    // if userToken is in cookies, grab it
+    for (let i = 0; i < parsedCookies.length; i++) {
+      if (parsedCookies[i][0] === userToken) {
+        userToken = parsedCookies[i][1];
+        console.log("grabbed userToken");
+      }
     }
-  }
+
+    // then switch isLoggedIn state depending on result
+    if (isLoggedIn === false) {
+      // this state locks in the profile button until token expires
+      if (userToken !== "userToken") {
+        setIsLoggedIn(true);
+      }
+    }
+  });
 
   const hiddenOnMobile = {
     display: { xs: "none", sm: "none", md: "flex" },

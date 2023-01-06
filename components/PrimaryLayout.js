@@ -14,7 +14,7 @@ export default function Layout({ children }) {
       </Head>
       <header>
         <Box display="flex" flexDirection="column">
-          <NavBar authOrProfile={children.props.authOrProfile} profile={children.props.profile} />
+          <NavBar />
           <AppBarNav />
         </Box>
       </header>
