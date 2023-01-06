@@ -55,14 +55,13 @@ export default function createCartCards(products) {
     return sum;
   }
 
-  console.log(subtotal().toFixed(2));
-
-  // create the cards
+  // Send back cartItems in order to fulfill checkout API call, calculate subtotal, and create the cards
   let cartCards = {
+    cartItems: cartItems,
     subtotal: subtotal().toFixed(2),
     cards: cartItems.map((item) => (
-      <>
-        <Grid container spacing={3} key={item.productID}>
+      <li key={item.productID} style={{ listStyle: "none" }}>
+        <Grid container spacing={3}>
           <Grid item xs={12} md={7} height="100%">
             <Grid container spacing={2}>
               <Grid item xs={12} display="flex" gap="20px">
@@ -113,7 +112,6 @@ export default function createCartCards(products) {
                           },
                         },
                       }}
-                      justifyContent="space-between"
                     ></InputBase>
                     <IconButton
                       onClick={() => dispatch(cartActions.addOneToCartItem({ id: item.productID }))}
@@ -123,7 +121,6 @@ export default function createCartCards(products) {
                   </Paper>
                   <Button
                     variant="text"
-                    borderRadius="20px"
                     onClick={() => dispatch(cartActions.removeItemFromCart({ id: item.productID }))}
                   >
                     Remove
@@ -158,7 +155,7 @@ export default function createCartCards(products) {
             <Divider sx={{ marginBottom: "15px" }} />
           </Grid>
         </Grid>
-      </>
+      </li>
     )),
   };
   return cartCards;
