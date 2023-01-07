@@ -53,7 +53,7 @@ export default function Auth() {
         password,
       });
 
-      document.cookie = `userToken=${data.token};secure;samesite=lax;max-age=900`;
+      document.cookie = `sessionActive=true;secure;samesite=lax;max-age=900`;
 
       setCreateAcctErr("Login successful! You will be redirected to the home page...");
       setErrSeverity("success");

@@ -9,7 +9,7 @@ import { useState, useEffect } from "react";
 
 export default function NavBar(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  let userToken = "userToken";
+  let sessionActive = "sessionActive";
 
   useEffect(() => {
     // grab all cookies
@@ -19,15 +19,15 @@ export default function NavBar(props) {
 
     // if userToken is in cookies, grab it
     for (let i = 0; i < parsedCookies.length; i++) {
-      if (parsedCookies[i][0] === userToken) {
-        userToken = parsedCookies[i][1];
+      if (parsedCookies[i][0] === sessionActive) {
+        sessionActive = parsedCookies[i][1];
       }
     }
 
     // then switch isLoggedIn state depending on result
     if (isLoggedIn === false) {
       // this state locks in the profile button until token expires
-      if (userToken !== "userToken") {
+      if (sessionActive !== "sessionActive") {
         setIsLoggedIn(true);
       }
     }

@@ -2,6 +2,8 @@ import prisma from "../../../lib/prisma";
 import { SignJWT } from "jose";
 import { hashUserID } from "../../../lib/hasher";
 import { comparePassAndHash } from "../../../lib/checkHash";
+import { setCookie } from "cookies-next";
+import { LineAxis } from "@mui/icons-material";
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
@@ -37,8 +39,16 @@ export default async function handler(req, res) {
       .setIssuedAt()
       .sign(new TextEncoder().encode(process.env.JWT_SECRET));
 
-    // return token
-    res.json({ token });
+    setCookie("userToken", token, {
+      req,
+      res,
+      maxAge: 60 * 15,
+      sameSite: "lax",
+      httpOnly: true,
+      secure: true,
+    });
+
+    res.send("token set");
   } else {
     res.status(501).send("The HTTP method is not supported by this route and cannot be handled.");
   }
