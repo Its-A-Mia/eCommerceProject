@@ -30,6 +30,15 @@ model User {
   createdAt DateTime @default(now()) @map(name: "created_at") 
   updatedAt DateTime @updatedAt
   order     Order[]
+  session   Session[]
+}
+
+model Session {
+  id     String 
+  userId String
+  user   User   @relation(fields:[userId], references: [id])
+
+  @@id([id, userId])
 }
 
 model Order {

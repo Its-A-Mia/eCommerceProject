@@ -3,7 +3,6 @@ import { SignJWT } from "jose";
 import { hashUserID } from "../../../lib/hasher";
 import { comparePassAndHash } from "../../../lib/checkHash";
 import { setCookie } from "cookies-next";
-import { LineAxis } from "@mui/icons-material";
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
@@ -38,6 +37,16 @@ export default async function handler(req, res) {
       .setExpirationTime("15m")
       .setIssuedAt()
       .sign(new TextEncoder().encode(process.env.JWT_SECRET));
+
+    // store session data in db for reference and security
+    try {
+      const session = await prisma.session.create({
+        data: { id: token, userId: existingUser.id },
+      });
+      console.log(session);
+    } catch (error) {
+      console.log(error);
+    }
 
     setCookie("userToken", token, {
       req,
