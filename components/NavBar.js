@@ -21,7 +21,6 @@ export default function NavBar(props) {
     for (let i = 0; i < parsedCookies.length; i++) {
       if (parsedCookies[i][0] === userToken) {
         userToken = parsedCookies[i][1];
-        console.log("grabbed userToken");
       }
     }
 
