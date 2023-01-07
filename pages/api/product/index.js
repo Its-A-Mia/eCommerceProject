@@ -1,22 +1,39 @@
 import prisma from "../../../lib/prisma";
+import allProducts from "../../../dbFiles/Product.json";
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
-    // gather product info
-    const { title, price, category, description } = req.body;
+    // create custom script to start website in Docker instance
 
-    // create product--should return error, will have to add later
-    const postResult = await prisma.product.create({
-      data: {
-        title,
-        price,
-        category,
-        description,
-      },
-    });
+    // will collect results
+    let postResult = [];
 
-    // return created product
-    res.json(postResult);
+    // check if products have been created, otherwise return
+    const isSeeded = await prisma.product.findMany({});
+
+    if (isSeeded) {
+      return res.json("Products already seeded.");
+    }
+
+    // create each product in database--should execute only when project is first opened
+    for (let i = 0; i < allProducts.length; i++) {
+      let createdProduct = await prisma.product.create({
+        data: {
+          title: allProducts[i].title,
+          price: allProducts[i].price,
+          category: allProducts[i].category,
+          description: allProducts[i].description,
+          color: allProducts[i].color,
+          rating: Number(allProducts[i].rating),
+        },
+      });
+      // used for debugging
+      postResult.push(createdProduct);
+    }
+
+    // Seeding completed
+    res.json("Products seeded.");
+    // res.json(postResult);
   } else if (req.method === "GET") {
     // grab request queries
     const { title, category, description, numericFilters } = req.query;
