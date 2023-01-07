@@ -42,7 +42,7 @@ export async function middleware(req) {
     }
 
     const redirectURL = req.nextUrl.clone();
-    redirectURL.pathname = "/profile";
+    redirectURL.pathname = "/protected/profile";
     return NextResponse.redirect(redirectURL);
   }
 }
