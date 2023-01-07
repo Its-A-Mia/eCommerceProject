@@ -1,10 +1,14 @@
 import ProductsLayout from "../../../components/ProductsLayout";
 import { Grid } from "@mui/material";
 import useCreateProductCards from "../../../components/customHooks/useCreateProdCards";
+import tShirtBG from "../../../public/images/tshirts.png";
+import axios from "axios";
 
 export const getStaticProps = async () => {
-  const res = await fetch("https://fakestoreapi.com/products");
-  const data = await res.json();
+  const res = await axios.get("http://localhost:3000/api/product", {
+    params: { category: "shirt" },
+  });
+  const data = res.data.allProducts;
 
   return {
     props: { products: data },
@@ -14,7 +18,7 @@ export const getStaticProps = async () => {
 export default function TShirts({ products }) {
   const productInfo = { name: "T-Shirts", path: "Tops" };
 
-  const productCards = useCreateProductCards(products);
+  const productCards = useCreateProductCards(products, tShirtBG);
 
   return (
     <>
