@@ -38,12 +38,21 @@ export default async function handler(req, res) {
       .setIssuedAt()
       .sign(new TextEncoder().encode(process.env.JWT_SECRET));
 
+    // first delete any previous sessions attached to that userId
+    try {
+      await prisma.session.delete({
+        where: { userId: existingUser.id },
+      });
+      console.log("Previous session deleted.");
+    } catch (error) {
+      console.log("No previous session found.");
+    }
+
     // store session data in db for reference and security
     try {
-      const session = await prisma.session.create({
-        data: { id: token, userId: existingUser.id },
+      await prisma.session.create({
+        data: { userId: existingUser.id, token },
       });
-      console.log(session);
     } catch (error) {
       console.log(error);
     }
