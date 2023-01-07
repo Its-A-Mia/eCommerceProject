@@ -1,6 +1,7 @@
 import prisma from "../../../lib/prisma";
-import comparePassAndHash from "../../../lib/checkHash";
 import { SignJWT } from "jose";
+import { hashUserID } from "../../../lib/hasher";
+import { comparePassAndHash } from "../../../lib/checkHash";
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
@@ -26,8 +27,11 @@ export default async function handler(req, res) {
       return;
     }
 
+    // hash userID to store in token as sessionID
+    const hashedUserID = await hashUserID(existingUser.id);
+
     // user has been found and validated both frontend and backend, now to create token to validate session
-    const token = await new SignJWT({ id: existingUser.id })
+    const token = await new SignJWT({ id: hashedUserID })
       .setProtectedHeader({ alg: "HS256" })
       .setExpirationTime("15m")
       .setIssuedAt()
