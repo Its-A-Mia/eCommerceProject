@@ -1,4 +1,5 @@
 import productStyles from "../../styles/products.module.css";
+
 import {
   Button,
   Card,
@@ -13,7 +14,7 @@ import { Box } from "@mui/system";
 import { useDispatch } from "react-redux";
 import { cartActions } from "../../store/cart-slice";
 
-export default function createProdCards(products) {
+export default function createProdCards(products, image) {
   const dispatch = useDispatch();
 
   const productCards = products.map((product) => (
@@ -28,7 +29,7 @@ export default function createProdCards(products) {
           }}
         >
           <Box alignSelf="center">
-            <CardMedia component="img" height="250px" image={product.image} />
+            <CardMedia component="img" height="250px" image={image.src} />
           </Box>
           <CardContent
             sx={{
@@ -41,9 +42,14 @@ export default function createProdCards(products) {
             <Typography alignSelf="flex-start">{product.title}</Typography>
             <Box width="100%" display="flex" flexDirection="column" alignItems="center" gap="8px">
               <Typography alignSelf="flex-start" fontWeight="bold">
-                ${product.price.toFixed(2)}
+                ${Number(product.price).toFixed(2)}
               </Typography>
-              <Rating name="read-only" readOnly sx={{ alignSelf: "flex-start" }} />
+              <Rating
+                name="read-only"
+                value={product.rating}
+                readOnly
+                sx={{ alignSelf: "flex-start" }}
+              />
             </Box>
           </CardContent>
         </CardActionArea>
