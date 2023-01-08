@@ -1,5 +1,12 @@
 import { Add, Remove } from "@mui/icons-material";
 
+import tShirtBG from "../../public/images/tshirts.png";
+import hoodiesBG from "../../public/images/hoodies.png";
+import jeansBG from "../../public/images/jeans.png";
+import shoesBG from "../../public/images/shoes.png";
+import sweatersBG from "../../public/images/sweaters.png";
+import sweatpantsBG from "../../public/images/sweatpants.png";
+
 import {
   Button,
   CardMedia,
@@ -45,12 +52,34 @@ export default function createCartCards(products) {
     return;
   }
 
+  function itemImage(category) {
+    switch (category) {
+      case "shirt":
+        return tShirtBG.src;
+
+      case "sweater":
+        return sweatersBG.src;
+
+      case "hoodie":
+        return hoodiesBG.src;
+
+      case "sweatpants":
+        return sweatpantsBG.src;
+
+      case "jeans":
+        return jeansBG.src;
+
+      case "shoe":
+        return shoesBG.src;
+    }
+  }
+
   function subtotal() {
     let sum = 0;
     for (let i = 0; i < cartItems.length; i++) {
       sum +=
         products.find((product) => product.id === cartItems[i].productID).price *
-        cartItems[i].amtOf;
+        cartItems[i].quantity;
     }
     return sum;
   }
@@ -65,21 +94,26 @@ export default function createCartCards(products) {
           <Grid item xs={12} md={7} height="100%">
             <Grid container spacing={2}>
               <Grid item xs={12} display="flex" gap="20px">
-                <Box width="90px">
+                <Box width="140px">
                   <CardMedia
                     component="img"
-                    image={products.find((product) => product.id === item.productID).image}
+                    image={itemImage(
+                      products.find((product) => product.id === item.productID).category
+                    )}
                   />
                 </Box>
-                <Box>
+                <Box display="flex" flexDirection="column" justifyContent="space-between">
                   <Link href={`/products/${item.productID}`}>
                     {products.find((product) => product.id === item.productID).title}
                   </Link>
-                  <Typography>
+                  {/* <Typography>
                     Item {products.find((product) => product.id === item.productID).id}
-                  </Typography>
+                  </Typography> */}
                   <Typography>
-                    ${products.find((product) => product.id === item.productID).price.toFixed(2)}
+                    $
+                    {Number(
+                      products.find((product) => product.id === item.productID).price
+                    ).toFixed(2)}
                   </Typography>
                 </Box>
               </Grid>
@@ -104,7 +138,7 @@ export default function createCartCards(products) {
                     </IconButton>
                     <InputBase
                       type="text"
-                      value={item.amtOf}
+                      value={item.quantity}
                       sx={{
                         "&.MuiInputBase-root": {
                           "& input": {
@@ -131,7 +165,8 @@ export default function createCartCards(products) {
                   <Typography>
                     $
                     {(
-                      products.find((product) => product.id === item.productID).price * item.amtOf
+                      Number(products.find((product) => product.id === item.productID).price) *
+                      item.quantity
                     ).toFixed(2)}
                   </Typography>
                 </Box>
