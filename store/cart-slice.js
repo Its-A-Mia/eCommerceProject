@@ -17,18 +17,18 @@ const cartSlice = createSlice({
       if (!cartItemLS) {
         localStorage.setItem(
           `CART-ITEM ${action.payload.id}`,
-          JSON.stringify({ productID: action.payload.id, amtOf: 1 })
+          JSON.stringify({ productID: action.payload.id, quantity: 1 })
         );
         return;
       }
 
       // otherwise add one more to localStorage
-      if (cartItemLS.amtOf >= 1) {
+      if (cartItemLS.quantity >= 1) {
         localStorage.removeItem(`CART-ITEM ${action.payload.id}`);
-        cartItemLS.amtOf += 1;
+        cartItemLS.quantity += 1;
         localStorage.setItem(
           `CART-ITEM ${action.payload.id}`,
-          JSON.stringify({ productID: action.payload.id, amtOf: cartItemLS.amtOf })
+          JSON.stringify({ productID: action.payload.id, quantity: cartItemLS.quantity })
         );
       }
     },
@@ -37,10 +37,10 @@ const cartSlice = createSlice({
       const cartItemLS = JSON.parse(localStorage.getItem(`CART-ITEM ${action.payload.id}`));
 
       localStorage.removeItem(`CART-ITEM ${action.payload.id}`);
-      cartItemLS.amtOf = action.payload.itemAmt;
+      cartItemLS.quantity = action.payload.itemAmt;
       localStorage.setItem(
         `CART-ITEM ${action.payload.id}`,
-        JSON.stringify({ productID: action.payload, amtOf: cartItemLS.amtOf })
+        JSON.stringify({ productID: action.payload, quantity: cartItemLS.quantity })
       );
     },
     addOneToCartItem(state, action) {
@@ -48,10 +48,10 @@ const cartSlice = createSlice({
       const cartItemLS = JSON.parse(localStorage.getItem(`CART-ITEM ${action.payload.id}`));
 
       localStorage.removeItem(`CART-ITEM ${action.payload.id}`);
-      cartItemLS.amtOf += 1;
+      cartItemLS.quantity += 1;
       localStorage.setItem(
         `CART-ITEM ${action.payload.id}`,
-        JSON.stringify({ productID: action.payload.id, amtOf: cartItemLS.amtOf })
+        JSON.stringify({ productID: action.payload.id, quantity: cartItemLS.quantity })
       );
     },
     removeOneCartItem(state, action) {
@@ -59,16 +59,16 @@ const cartSlice = createSlice({
       const cartItemLS = JSON.parse(localStorage.getItem(`CART-ITEM ${action.payload.id}`));
 
       // don't allow it to delete item
-      if (cartItemLS.amtOf <= 1) {
+      if (cartItemLS.quantity <= 1) {
         return;
       }
 
       localStorage.removeItem(`CART-ITEM ${action.payload.id}`);
-      cartItemLS.amtOf -= 1;
+      cartItemLS.quantity -= 1;
 
       localStorage.setItem(
         `CART-ITEM ${action.payload.id}`,
-        JSON.stringify({ productID: action.payload.id, amtOf: cartItemLS.amtOf })
+        JSON.stringify({ productID: action.payload.id, quantity: cartItemLS.quantity })
       );
     },
     removeItemFromCart(state, action) {
