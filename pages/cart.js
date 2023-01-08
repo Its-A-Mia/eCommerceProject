@@ -4,9 +4,9 @@ import utilStyles from "../styles/utils.module.css";
 import useCreateCartCards from "../components/customHooks/useCreateCartCards";
 import axios from "axios";
 
-export const getStaticProps = async () => {
-  const res = await fetch("https://fakestoreapi.com/products");
-  const data = await res.json();
+export const getStaticProps = async (ctx) => {
+  const res = await axios.get("http://localhost:3000/api/product");
+  const data = res.data.allProducts;
 
   return {
     props: { products: data },
@@ -28,8 +28,9 @@ export default function Cart({ products }) {
       });
     } catch (error) {
       if (error.response.data === "unauthorized") {
-        window.location = "/auth";
+        return (window.location = "/auth");
       }
+      console.log(error);
     }
   };
 
