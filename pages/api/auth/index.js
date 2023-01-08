@@ -57,6 +57,7 @@ export default async function handler(req, res) {
       console.log(error);
     }
 
+    // store token cookie
     setCookie("userToken", token, {
       req,
       res,
