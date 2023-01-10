@@ -45,11 +45,10 @@ const profileSlice = createSlice({
       // validates email input
       const emailRegex =
         /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
-      if (emailRegex.test(action.payload.email) === false) {
-        state.emailValidated = false;
-        state.showEmailError = true;
-        state.emailHelperText = "Invalid Email";
-        console.log(state.email);
+      if (emailRegex.test(action.payload.newEmail) === false) {
+        state.newEmailValidated = false;
+        state.showNewEmailError = true;
+        state.newEmailHelperText = "Invalid Email";
         return;
       }
 
@@ -59,14 +58,6 @@ const profileSlice = createSlice({
       state.emailValidated = true;
     },
     newPasswordValidation(state, action) {
-      // checks for no password input
-      if (!action.payload.newPassword) {
-        state.newPasswordValidated = false;
-        state.showNewPasswordError = true;
-        state.newPasswordHelperText = "New password cannot be empty";
-        return;
-      }
-
       // validates passwords match
       if (action.payload.newPassword !== action.payload.confirmNewPassword) {
         state.newPasswordValidated = false;

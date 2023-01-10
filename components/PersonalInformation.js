@@ -30,7 +30,7 @@ export default function PersonalInformation() {
 
   const handleUpdate = async () => {
     try {
-      const response = await axios.patch("/api/user", {
+      await axios.patch("/api/user", {
         newName,
         toUpdate: "name",
       });

@@ -113,6 +113,10 @@ export default async function handler(req, res) {
     }
 
     if (newEmail) {
+      if (newEmail === user.email) {
+        return res.status(500).send(`Your email is already ${newEmail}`);
+      }
+
       try {
         await prisma.user.update({
           where: { id: session.userId },
@@ -124,14 +128,22 @@ export default async function handler(req, res) {
     }
 
     if (newPassword) {
+      const comparePass = await comparePassAndHash(newPassword, user.hash);
+      if (comparePass) {
+        return res
+          .status(500)
+          .send(`The new password you entered is the same as your current one.`);
+      }
+
       const hash = await hashPass(newPassword);
+
       try {
         await prisma.user.update({
           where: { id: session.userId },
           data: { hash },
         });
       } catch (error) {
-        res, json(error);
+        res.json(error);
       }
     }
 
