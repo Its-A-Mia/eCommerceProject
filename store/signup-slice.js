@@ -29,7 +29,6 @@ const signupSlice = createSlice({
       // validation passed
       state.nameValidated = true;
     },
-
     emailValidation(state, action) {
       // check for no email input
       if (!action.payload.email) {
@@ -55,7 +54,6 @@ const signupSlice = createSlice({
       // validation passed
       state.emailValidated = true;
     },
-
     passwordValidation(state, action) {
       // checks for no password input
       if (!action.payload.password) {
