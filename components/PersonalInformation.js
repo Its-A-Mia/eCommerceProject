@@ -36,7 +36,7 @@ export default function PersonalInformation() {
       });
 
       setTimeout(() => location.reload(), 2000);
-      setUpdateErr("Update Successful!");
+      setUpdateErr("Update Successful! Page will refresh.");
       setErrSeverity("success");
     } catch (error) {
       setUpdateErr(error.request.response);
