@@ -36,7 +36,7 @@ export default function createCartCards(products) {
       // grab items from localStorage
       let itemsArr = [];
       for (let i = 0, len = localStorage.length; i < len; i++) {
-        if (localStorage.key(i).match(/CART-ITEM\s[\d\d\d]/gm))
+        if (localStorage.key(i).match(/CART-ITEM\s/gm))
           itemsArr.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
       }
 
