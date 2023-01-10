@@ -1,0 +1,16 @@
+.button {
+  border: none;
+  padding: 4px 6px;
+  background: none;
+  cursor: pointer;
+  color: #446ca1;
+}
+
+.buttonSelected {
+  border-radius: 10px;
+  padding: 4px 6px;
+  border: none;
+  background-color: #5d82b3;
+  cursor: pointer;
+  color: #ffffff;
+}
