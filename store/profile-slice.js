@@ -31,7 +31,7 @@ const profileSlice = createSlice({
       // reset
       state.showNewNameError = false;
       // validation passed
-      state.nameValidated = true;
+      state.newNameValidated = true;
     },
     newEmailValidation(state, action) {
       // check for no email input

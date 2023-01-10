@@ -23,6 +23,7 @@ export const getServerSideProps = async (ctx) => {
 export default function Profile({ user }) {
   // States for menu categories
   const [profileCategory, setProfileCategory] = useState("Personal Information");
+  const [userName, setUserName] = useState(user.name);
 
   const handleClick = (category) => {
     setProfileCategory(category);
@@ -68,10 +69,12 @@ export default function Profile({ user }) {
         <Grid item md={9}>
           <Box width="100%">
             <Typography variant="h3" sx={{ p: "0 0 20px 0" }}>
-              Hi, {user.name}
+              Hi, {userName}
             </Typography>
           </Box>
-          {profileCategory === "Personal Information" ? <PersonalInformation /> : null}
+          {profileCategory === "Personal Information" ? (
+            <PersonalInformation setUserName={setUserName} />
+          ) : null}
           {profileCategory === "Account Security" ? <AccountSecurity /> : null}
         </Grid>
       </Grid>

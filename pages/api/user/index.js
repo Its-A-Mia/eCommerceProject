@@ -1,3 +1,6 @@
+import { comparePassAndHash, compareUserIDAndHashID } from "../../../lib/checkHash";
+import jwt_decode from "jwt-decode";
+
 import { hashPass } from "../../../lib/hasher";
 import prisma from "../../../lib/prisma";
 
@@ -30,21 +33,109 @@ export default async function handler(req, res) {
 
     res.json(postResult);
   } else if (req.method === "GET") {
-    const { name, email } = req.query;
-    const queryObject = {};
+    // const { cookies } = req.params;
 
-    if (name) {
-      queryObject.name = name;
-    }
+    const userToken = req.body.cookies.userToken;
 
-    if (email) {
-      queryObject.email = email;
-    }
+    const decodedToken = jwt_decode(userToken);
 
-    const allUsers = await prisma.user.findMany({
-      where: queryObject,
+    const session = await prisma.session.findFirst({
+      where: { token: userToken },
     });
-    res.json({ allUsers, nbHits: allUsers.length });
+
+    try {
+      await compareUserIDAndHashID(session.userId, decodedToken.id);
+    } catch (error) {
+      console.log("UserID is not valid");
+      return;
+    }
+
+    const user = await prisma.user.findFirst({
+      where: { id: session.userId },
+    });
+
+    res.json({ name: user.name, email: user.email });
+  } else if (req.method === "PATCH") {
+    // grab all inputs
+    const { newPassword, newEmail, newName, toUpdate } = req.body;
+
+    // checks for input
+    if (toUpdate === "name" && !newName) {
+      return res.status(500).send(`Please fill out ${toUpdate}.`);
+    }
+
+    if (toUpdate === "email" && !newEmail) {
+      return res.status(500).send(`Please fill out ${toUpdate}.`);
+    }
+
+    if (toUpdate === "password" && !newPassword) {
+      return res.status(500).send(`Please fill out ${toUpdate}.`);
+    }
+
+    //  grab token then decode to pull userID
+    const userToken = req.cookies.userToken;
+    const decodedToken = jwt_decode(userToken);
+
+    //  get session for unhashedID
+    const session = await prisma.session.findFirst({
+      where: { token: userToken },
+    });
+
+    //  authenticate
+    try {
+      await compareUserIDAndHashID(session.userId, decodedToken.id);
+    } catch (error) {
+      console.log("UserID is not valid");
+      return;
+    }
+
+    // grab user data to check if the current value equals the new
+    const user = await prisma.user.findFirst({
+      where: { id: session.userId },
+    });
+
+    if (newName) {
+      if (newName === user.name) {
+        return res.status(500).send(`Your name is already ${newName}`);
+      }
+
+      const name = newName.charAt(0).toUpperCase() + newName.slice(1);
+
+      try {
+        const updatedAccount = await prisma.user.update({
+          where: { id: session.userId },
+          data: { name },
+        });
+        res.json(updatedAccount.name);
+      } catch (error) {
+        res, json(error);
+      }
+    }
+
+    if (newEmail) {
+      try {
+        await prisma.user.update({
+          where: { id: session.userId },
+          data: { email: newEmail },
+        });
+      } catch (error) {
+        res, json(error);
+      }
+    }
+
+    if (newPassword) {
+      const hash = await hashPass(newPassword);
+      try {
+        await prisma.user.update({
+          where: { id: session.userId },
+          data: { hash },
+        });
+      } catch (error) {
+        res, json(error);
+      }
+    }
+
+    res.json("Update successful.");
   } else {
     throw new Error(`The HTTP ${req.method} method is not suported at this route`);
   }
