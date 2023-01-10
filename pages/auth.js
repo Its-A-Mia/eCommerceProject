@@ -53,7 +53,7 @@ export default function Auth() {
         password,
       });
 
-      document.cookie = `sessionActive=true;secure;samesite=lax;max-age=900`;
+      document.cookie = `sessionActive=true;path=/;secure;samesite=lax;max-age=900`;
 
       setCreateAcctErr("Login successful! You will be redirected to the home page...");
       setErrSeverity("success");
@@ -84,7 +84,9 @@ export default function Auth() {
             />
           </FormControl>
           <FormControl fullWidth>
-            <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+            <InputLabel htmlFor="outlined-adornment-password" required>
+              Password
+            </InputLabel>
             <OutlinedInput
               id="filled-adornment-password"
               type={showPassword ? "text" : "password"}
