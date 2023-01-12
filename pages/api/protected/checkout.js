@@ -24,7 +24,24 @@ export default async function handler(req, res) {
       const order = await prisma.order.create({
         data: { customerId: session.userId },
       });
-      console.log(order);
+
+      let orderDetails = [];
+      for (let i = 0; i < cartItems.length; i++) {
+        const product = await prisma.product.findFirst({
+          where: { id: cartItems[i].productID },
+        });
+
+        const orderDetail = await prisma.orderDetail.create({
+          data: {
+            orderId: order.orderNumber,
+            productId: cartItems[i].productID,
+            unitPrice: product.price,
+            quantity: cartItems[i].quantity,
+          },
+        });
+        orderDetails.push(orderDetail);
+      }
+      console.log(orderDetails, order);
     }
 
     res.json({ hi: "hi" });

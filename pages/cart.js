@@ -23,6 +23,7 @@ export default function Cart({ products }) {
 
   const handleCheckout = async () => {
     try {
+      console.log(cartInfo.cartItems);
       const response = await axios.post("/api/protected/checkout", {
         cartItems: cartInfo.cartItems,
       });
