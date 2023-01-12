@@ -105,6 +105,10 @@ export default function AccountSecurity() {
 
   // update email
   const handleNewEmailUpdate = async () => {
+    if (!newEmailValidated) {
+      return;
+    }
+
     try {
       await axios.patch("/api/user", {
         newEmail,
@@ -236,6 +240,9 @@ export default function AccountSecurity() {
           onKeyUp={(e) => setNewEmail(e.target.value)}
           onBlur={() => dispatch(profileActions.newEmailValidation({ newEmail }))}
         ></OutlinedInput>
+        <FormHelperText disabled={showNewEmailError} error>
+          {newEmailHelperText}
+        </FormHelperText>
       </FormControl>
 
       <Button variant="contained" onClick={() => handleNewEmailUpdate()} sx={{ width: "100px" }}>
