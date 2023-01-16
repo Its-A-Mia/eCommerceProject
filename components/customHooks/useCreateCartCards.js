@@ -23,7 +23,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { cartActions } from "../../store/cart-slice";
 
-export default function createCartCards(products) {
+export default function useCreateCartCards(products) {
   // set up redux dispatch
   const dispatch = useDispatch();
 
@@ -85,7 +85,7 @@ export default function createCartCards(products) {
   }
 
   // Send back cartItems in order to fulfill checkout API call, calculate subtotal, and create the cards
-  let cartCards = {
+  let cartInfo = {
     cartItems: cartItems,
     subtotal: subtotal().toFixed(2),
     cards: cartItems.map((item) => (
@@ -193,5 +193,5 @@ export default function createCartCards(products) {
       </li>
     )),
   };
-  return cartCards;
+  return cartInfo;
 }
