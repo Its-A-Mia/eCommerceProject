@@ -53,9 +53,10 @@ const profileSlice = createSlice({
       }
 
       // reset
-      state.showEmailError = false;
+      state.showNewEmailError = false;
+      state.newEmailHelperText = null;
       // validation passed
-      state.emailValidated = true;
+      state.newEmailValidated = true;
     },
     newPasswordValidation(state, action) {
       // validates passwords match

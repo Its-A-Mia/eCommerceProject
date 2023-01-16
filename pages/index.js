@@ -13,7 +13,7 @@ import Button from "@mui/material/Button";
 //   background-size: cover;
 //   background-repeat: no-repeat;
 
-export default function () {
+export default function home() {
   // iterate through to create category buttons using an array of categories
   const createCategoryButtons = (categoryArr) => {
     let categoryCards = [];

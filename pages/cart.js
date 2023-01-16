@@ -3,6 +3,7 @@ import { Box } from "@mui/system";
 import utilStyles from "../styles/utils.module.css";
 import useCreateCartCards from "../components/customHooks/useCreateCartCards";
 import axios from "axios";
+import { useEffect, useState } from "react";
 
 export const getStaticProps = async (ctx) => {
   const res = await axios.get("http://localhost:3000/api/product");
@@ -16,6 +17,8 @@ export const getStaticProps = async (ctx) => {
 export default function Cart({ products }) {
   // have auth functionality connected to seeing your order and checking out. No checkout page, just a checkout button that checks session auth, if no auth, redirect to auth.
 
+  const [orderPlaced, setOrderPlaced] = useState(false);
+
   const cartInfo = useCreateCartCards(products);
 
   const cartCards = cartInfo.cards;
@@ -23,10 +26,11 @@ export default function Cart({ products }) {
 
   const handleCheckout = async () => {
     try {
-      console.log(cartInfo.cartItems);
       const response = await axios.post("/api/protected/checkout", {
         cartItems: cartInfo.cartItems,
       });
+      localStorage.clear();
+      setOrderPlaced(true);
     } catch (error) {
       if (error.response.data === "unauthorized") {
         return (window.location = "/auth");
@@ -45,7 +49,17 @@ export default function Cart({ products }) {
           <Divider />
         </Grid>
         <Grid item sm={12} md={8}>
-          {cartInfo.cards.length === 0 ? (
+          {orderPlaced ? (
+            <Box display="flex" flexDirection="column" gap="20px" maxWidth="660px">
+              <Typography>
+                Your order has been placed! Click See Orders below to go to your orders.
+              </Typography>
+              {/* place in media query here */}
+              <Button variant="contained" href="/protected/orders" fullWidth>
+                See Orders
+              </Button>
+            </Box>
+          ) : cartInfo.cards.length === 0 ? (
             <Box display="flex" flexDirection="column" gap="20px" maxWidth="660px">
               <Typography>
                 Your shopping cart is empty. Please add at least one item to your cart before
@@ -62,7 +76,7 @@ export default function Cart({ products }) {
         </Grid>
         {cartInfo.cards.length === 0 ? (
           <Grid item sm={12} md={4}></Grid>
-        ) : (
+        ) : !orderPlaced ? (
           <Grid item sm={12} md={4}>
             <Box width="100%" border={"solid gray 2px"} padding="16px">
               <Grid container spacing={2}>
@@ -122,7 +136,7 @@ export default function Cart({ products }) {
               </Button>
             </Box>
           </Grid>
-        )}
+        ) : null}
       </Grid>
     </>
   );
