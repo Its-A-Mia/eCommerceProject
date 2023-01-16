@@ -45,7 +45,7 @@ export default function home() {
   let categoryArr = [
     {
       category: "T-Shirts",
-      href: "/products/tops/tshirts",
+      href: "/products/tops/shirts",
       style: `${homeStyles.categoriesButton}`,
       backgroundImagePath: tShirtBG,
     },

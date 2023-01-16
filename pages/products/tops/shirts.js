@@ -16,7 +16,7 @@ export const getStaticProps = async () => {
 };
 
 export default function TShirts({ products }) {
-  const productInfo = { name: "T-Shirts", path: "Tops" };
+  const productInfo = { name: "Shirts", path: "Tops" };
 
   const productCards = useCreateProductCards(products, tShirtBG);
 
