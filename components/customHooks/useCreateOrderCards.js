@@ -8,7 +8,7 @@ import jeansBG from "../../public/images/jeans.png";
 import shoesBG from "../../public/images/shoes.png";
 import sweatersBG from "../../public/images/sweaters.png";
 import sweatpantsBG from "../../public/images/sweatpants.png";
-import Image from "next/image";
+
 import { useState } from "react";
 import axios from "axios";
 
@@ -16,13 +16,17 @@ export default function useCreateOrderCards(orders) {
   const [showAlert, setShowAlert] = useState(false);
 
   // cancel order handler
-  const handleCancelOrder = async (index) => {
+  const handleOrderButton = async (index) => {
     console.log(index);
     try {
-      const deleted = await axios.delete("/api/orders", {
-        data: { orderId: orders[index].orderNumber },
+      await axios.patch("/api/protected/updateOrder", {
+        data: { orderNumber: orders[index].orderNumber },
       });
+      setTimeout(() => location.reload(), 1000);
     } catch (error) {
+      if (error.response.data === "unauthorized") {
+        return (window.location = "/auth");
+      }
       console.log(error);
     }
   };
@@ -52,7 +56,8 @@ export default function useCreateOrderCards(orders) {
 
   const createOrderCards = () => {
     // temp arr to hold cards
-    let tempCards = [];
+    let activeCards = [];
+    let cancelledCards = [];
 
     for (let i = 0; i < orders.length; i++) {
       // first create order details
@@ -81,29 +86,56 @@ export default function useCreateOrderCards(orders) {
       //order total price
       const orderTotal = unitPriceArr.reduce((totalPrice, priceOfProd) => totalPrice + priceOfProd);
 
-      tempCards.push(
-        <Grid item xs={12} width="50%" display="flex" flexDirection="column" m="5px" gap="10px">
-          <Box display="flex" alignItems="baseline" justifyContent="space-between">
-            <Typography variant="h4">Order #{orders[i].orderNumber}</Typography>
-            <Typography>Ordered: {orders[i].createdAt.substring(0, 10)}</Typography>
-          </Box>
-          <Box display="flex" flexDirection="column" gap="12px">
-            {orderDetails}
-          </Box>
-          <Box display="flex" justifyContent="space-between" alignItems="center">
-            <Button variant="contained" onClick={() => handleCancelOrder(i)}>
-              Cancel Order
-            </Button>
-            <Typography fontWeight="bold">TOTAL: ${orderTotal}</Typography>
-          </Box>
-          <Divider />
-        </Grid>
-      );
+      if (orders[i].orderStatus === "Active") {
+        activeCards.push(
+          <Grid item xs={12} width="50%" display="flex" flexDirection="column" m="5px" gap="10px">
+            <Box display="flex" justifyContent="space-between">
+              <Typography variant="h4">Order #{orders[i].orderNumber}</Typography>
+              <Box display="flex" flexDirection="column" alignItems="flex-end">
+                <Typography>Ordered: {orders[i].createdAt.substring(0, 10)}</Typography>
+                <Typography>Order Status: {orders[i].orderStatus}</Typography>
+              </Box>
+            </Box>
+            <Box display="flex" flexDirection="column" gap="12px">
+              {orderDetails}
+            </Box>
+            <Box display="flex" justifyContent="space-between" alignItems="center">
+              <Button variant="contained" onClick={() => handleOrderButton(i)}>
+                Cancel Order
+              </Button>
+              <Typography fontWeight="bold">TOTAL: ${orderTotal}</Typography>
+            </Box>
+            <Divider />
+          </Grid>
+        );
+      } else {
+        cancelledCards.push(
+          <Grid item xs={12} width="50%" display="flex" flexDirection="column" m="5px" gap="10px">
+            <Box display="flex" justifyContent="space-between">
+              <Typography variant="h4">Order #{orders[i].orderNumber}</Typography>
+              <Box display="flex" flexDirection="column" alignItems="flex-end">
+                <Typography>Ordered: {orders[i].createdAt.substring(0, 10)}</Typography>
+                <Typography>Order Status: {orders[i].orderStatus}</Typography>
+              </Box>
+            </Box>
+            <Box display="flex" flexDirection="column" gap="12px">
+              {orderDetails}
+            </Box>
+            <Box display="flex" justifyContent="space-between" alignItems="center">
+              <Button variant="contained" onClick={() => handleOrderButton(i)}>
+                Reinstate Order
+              </Button>
+              <Typography fontWeight="bold">TOTAL: ${orderTotal}</Typography>
+            </Box>
+            <Divider />
+          </Grid>
+        );
+      }
     }
-
-    return tempCards;
+    return { activeCards, cancelledCards };
   };
 
   const orderCards = createOrderCards();
+
   return orderCards;
 }
