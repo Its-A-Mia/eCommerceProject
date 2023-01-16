@@ -14,7 +14,7 @@ import { Box } from "@mui/system";
 import { useDispatch } from "react-redux";
 import { cartActions } from "../../store/cart-slice";
 
-export default function createProdCards(products, image) {
+export default function useCreateProdCards(products, image) {
   const dispatch = useDispatch();
 
   const productCards = products.map((product) => (

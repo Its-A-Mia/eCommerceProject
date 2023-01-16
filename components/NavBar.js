@@ -9,13 +9,14 @@ import { useState, useEffect } from "react";
 
 export default function NavBar(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  let sessionActive = "sessionActive";
 
   useEffect(() => {
     // grab all cookies
     const cookies = document.cookie;
     // parse cookies
     const parsedCookies = cookies.split(";").map((cookie) => cookie.split("="));
+
+    let sessionActive = "sessionActive";
 
     // if userToken is in cookies, grab it
     for (let i = 0; i < parsedCookies.length; i++) {
@@ -31,7 +32,7 @@ export default function NavBar(props) {
         setIsLoggedIn(true);
       }
     }
-  });
+  }, [isLoggedIn]);
 
   const hiddenOnMobile = {
     display: { xs: "none", sm: "none", md: "flex" },
