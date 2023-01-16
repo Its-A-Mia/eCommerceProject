@@ -67,7 +67,7 @@ export default function useCreateOrderCards(orders) {
             <Box width="7rem">
               <CardMedia component="img" image={itemImage(orderDetail.productInfo.category)} />
             </Box>
-            <Link href={`/${orderDetail.productId}`} style={{ textDecoration: "none" }}>
+            <Link href={`/products/${orderDetail.productId}`} style={{ textDecoration: "none" }}>
               {orderDetail.productInfo.title}
             </Link>
           </Box>

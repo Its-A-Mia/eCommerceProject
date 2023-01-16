@@ -27,6 +27,7 @@ export default function useCreateProdCards(products, image) {
             flexDirection: "column",
             alignItems: "flex-start",
           }}
+          onClick={() => (window.location = `/products/${product.id}`)}
         >
           <Box alignSelf="center">
             <CardMedia component="img" height="250px" image={image.src} />
