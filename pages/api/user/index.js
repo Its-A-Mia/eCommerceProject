@@ -117,13 +117,21 @@ export default async function handler(req, res) {
         return res.status(500).send(`Your email is already ${newEmail}`);
       }
 
+      const existingEmail = await prisma.user.findFirst({
+        where: { email: newEmail },
+      });
+
+      if (existingEmail) {
+        return res.status(500).send("This email already in use. Please use a different one.");
+      }
+
       try {
         await prisma.user.update({
           where: { id: session.userId },
           data: { email: newEmail },
         });
       } catch (error) {
-        res, json(error);
+        res.json(error);
       }
     }
 

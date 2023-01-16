@@ -44,6 +44,6 @@ export default async function handler(req, res) {
       console.log(orderDetails, order);
     }
 
-    res.json({ hi: "hi" });
+    res.json("order created");
   }
 }
