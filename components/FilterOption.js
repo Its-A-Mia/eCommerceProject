@@ -12,19 +12,25 @@ import {
 import { Box } from "@mui/system";
 import Link from "next/link";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { filterActions } from "../store/filter-slice";
 
 export default function FilterOption(props) {
+  const dispatch = useDispatch();
+
   const [openCollapse, setOpenCollapse] = useState(false);
   const [checked, setChecked] = useState([0]);
 
-  const handleCheckboxToggle = (option) => {
+  const handleCheckboxToggle = (option, type) => {
     const currentIndex = checked.indexOf(option); //returns -1 if not in array
     const newChecked = [...checked];
 
     if (currentIndex === -1) {
       newChecked.push(option);
+      dispatch(filterActions.addFilter({ option, filterType: type }));
     } else {
       newChecked.splice(currentIndex, 1);
+      dispatch(filterActions.removeFilter({ option, filterType: type }));
     }
 
     setChecked(newChecked);
@@ -40,6 +46,8 @@ export default function FilterOption(props) {
   };
 
   const collapseOptions = props.options.map((option) => {
+    const type = props.listTitle.toLowerCase();
+
     return (
       <ListItem key={option} sx={{ padding: "0 0 0 30px" }}>
         {props.listTitle === "Category" ? (
@@ -56,7 +64,7 @@ export default function FilterOption(props) {
             <ListItemIcon>
               <Checkbox
                 edge="start"
-                onClick={() => handleCheckboxToggle(option)}
+                onClick={() => handleCheckboxToggle(option, type)}
                 checked={checked.indexOf(option) !== -1}
                 tabIndex={-1}
               />

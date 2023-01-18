@@ -28,6 +28,7 @@ export default function useFilter(products, filter) {
   };
 
   const filterRating = (product) => {
+    console.log(filter.color);
     if (filter.rating.includes(product.rating)) {
       filteredProducts.push(product);
     }
