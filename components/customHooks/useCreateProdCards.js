@@ -56,7 +56,7 @@ export default function useCreateProdCards(products, image) {
         </CardActionArea>
         <Button
           variant="contained"
-          onClick={() => dispatch(cartActions.addToCart({ id: product.id }))}
+          onClick={() => dispatch(cartActions.addToCart({ id: product.id, quantity: 1 }))}
           fullWidth
           sx={{ alignSelf: "flex-start" }}
         >
