@@ -10,6 +10,7 @@ import {
   Divider,
 } from "@mui/material";
 import { ExpandMore, ExpandLess } from "@mui/icons-material";
+import FilterOption from "./FilterOption";
 
 export default function FilterProducts() {
   const [openCategory, setOpenCategory] = React.useState(false);
@@ -47,55 +48,26 @@ export default function FilterProducts() {
         component="nav"
         aria-labelledby="filter-subheader"
       >
-        <ListItemButton onClick={() => handleClick("openCategory")}>
-          <ListItemText primary="Category" />
-          {openCategory ? <ExpandLess /> : <ExpandMore />}
-        </ListItemButton>
-        <Collapse in={openCategory} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItemText primary="test" />
-          </List>
-        </Collapse>
+        <FilterOption
+          listTitle="Category"
+          options={["Shirts", "Sweaters", "Hoodies", "Sweatpants", "Jeans", "Shoes"]}
+        />
+
         <Divider />
-        <ListItemButton onClick={() => handleClick("openPrice")}>
-          <ListItemText primary="Price" />
-          {openPrice ? <ExpandLess /> : <ExpandMore />}
-        </ListItemButton>
-        <Collapse in={openPrice} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItemText primary="test" />
-          </List>
-        </Collapse>
+        <FilterOption
+          listTitle="Price"
+          options={["$0 - $100", "$101 - $200", "$201 - $300", "$301 - $400", "$401 - $500"]}
+        />
+
         <Divider />
-        <ListItemButton onClick={() => handleClick("openBrand")}>
-          <ListItemText primary="Brand" />
-          {openBrand ? <ExpandLess /> : <ExpandMore />}
-        </ListItemButton>
-        <Collapse in={openBrand} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItemText primary="test" />
-          </List>
-        </Collapse>
+        <FilterOption listTitle="Rating" options={["0", "1", "2", "3", "4", "5"]} />
+
         <Divider />
-        <ListItemButton onClick={() => handleClick("openColor")}>
-          <ListItemText primary="Color" />
-          {openColor ? <ExpandLess /> : <ExpandMore />}
-        </ListItemButton>
-        <Collapse in={openColor} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItemText primary="test" />
-          </List>
-        </Collapse>
-        <Divider />
-        <ListItemButton onClick={() => handleClick("openStyle")}>
-          <ListItemText primary="Style" />
-          {openStyle ? <ExpandLess /> : <ExpandMore />}
-        </ListItemButton>
-        <Collapse in={openStyle} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItemText primary="test" />
-          </List>
-        </Collapse>
+        <FilterOption
+          listTitle="Color"
+          options={["Red", "Blue", "Green", "Yellow", "Purple", "Brown", "Tan", "Pink", "Orange"]}
+        />
+
         <Divider />
       </List>
     </>
