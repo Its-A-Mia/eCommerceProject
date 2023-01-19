@@ -11,11 +11,36 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { cartActions } from "../../store/cart-slice";
+import useFilter from "./useFilter";
+import { useEffect } from "react";
 
 export default function useCreateProdCards(products, image) {
   const dispatch = useDispatch();
+
+  const priceFilter = useSelector((state) => state.filter.priceFilter);
+  const ratingFilter = useSelector((state) => state.filter.ratingFilter);
+  const colorFilter = useSelector((state) => state.filter.colorFilter);
+
+  const filter = { price: priceFilter, rating: ratingFilter, color: colorFilter };
+
+  const filterResults = useFilter(products, filter);
+
+  if (filterResults.length !== 0) {
+    products = filterResults;
+  }
+
+  if (
+    filterResults.length === 0 &&
+    (priceFilter.length !== 0 || ratingFilter.length !== 0 || colorFilter.length !== 0)
+  ) {
+    return (
+      <Grid item xs={12}>
+        <Typography>No results match these filters</Typography>
+      </Grid>
+    );
+  }
 
   const productCards = products.map((product) => (
     <Grid item xs={12} sm={6} md={4} className={productStyles.productCard} key={product.id}>

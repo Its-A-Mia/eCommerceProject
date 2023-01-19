@@ -24,7 +24,7 @@ export default function useFilter(products, filter) {
       }
     }
   };
-  // if includes rating && price && color
+
   const filterRating = (product) => {
     if (filter.rating.includes(product.rating)) {
       return product;
@@ -110,6 +110,6 @@ export default function useFilter(products, filter) {
       }
     }
   }
-  console.log(filteredProducts);
+
   return filteredProducts;
 }
