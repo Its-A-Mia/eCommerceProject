@@ -1,7 +1,10 @@
 import { List, Typography, Grid, Button, Divider } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { filterActions } from "../store/filter-slice";
 import FilterOption from "./FilterOption";
 
 export default function FilterProducts() {
+  const dispatch = useDispatch();
   // clear button, category section, delivery location, price, sizes, brand, color
   return (
     <>
@@ -12,7 +15,11 @@ export default function FilterProducts() {
           </Typography>
         </Grid>
         <Grid item md={6} display="flex" alignItems="end" justifyContent="flex-end">
-          <Button variant="contained" sx={{ maxHeight: "40px", fontSize: "x-small" }}>
+          <Button
+            variant="contained"
+            onClick={() => dispatch(filterActions.clearFilter())}
+            sx={{ maxHeight: "40px", fontSize: "x-small" }}
+          >
             Clear All
           </Button>
         </Grid>
@@ -35,7 +42,7 @@ export default function FilterProducts() {
         />
 
         <Divider />
-        <FilterOption listTitle="Rating" options={["1", "2", "3", "4", "5"]} />
+        <FilterOption listTitle="Rating" options={[1, 2, 3, 4, 5]} />
 
         <Divider />
         <FilterOption

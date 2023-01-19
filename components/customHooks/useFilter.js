@@ -3,8 +3,6 @@ export default function useFilter(products, filter) {
   // go through products array and push only the products that match parameter
   // filter = {price: ["$0 - $100", "$101 - $200", "$201 - $300", "$301 - $400", "$401 - $500"], rating: [], color: []}
 
-  console.log(filter);
-
   let filteredProducts = [];
 
   const filterPrice = (product) => {
@@ -26,9 +24,8 @@ export default function useFilter(products, filter) {
       }
     }
   };
-
+  // if includes rating && price && color
   const filterRating = (product) => {
-    console.log(filter.color);
     if (filter.rating.includes(product.rating)) {
       filteredProducts.push(product);
     }
@@ -42,13 +39,24 @@ export default function useFilter(products, filter) {
 
   for (let i = 0; i < products.length; i++) {
     if (filter.price.length !== 0) {
-      filterPrice(products[i]);
+      if (filteredProducts.indexOf(products[i]) === -1) {
+        filterPrice(products[i]);
+      }
     }
+    console.log(filteredProducts);
     if (filter.rating.length !== 0) {
-      filterRating(products[i]);
+      if (filter.price.length !== 0) {
+        filterRating({ products: filteredProducts[i] }); //needs to compare values
+      } else if (filteredProducts.indexOf(products[i]) === -1) {
+        filterRating(products[i]);
+      }
     }
     if (filter.color.length !== 0) {
-      filterColor(products[i]);
+      if (filter.price.length !== 0 || filter.rating.length !== 0) {
+        filterRating({ products: filteredProducts[i] }); //needs to compare values
+      } else if (filteredProducts.indexOf(products[i]) === -1) {
+        filterColor(products[i]);
+      }
     }
   }
 

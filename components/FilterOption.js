@@ -12,29 +12,15 @@ import {
 import { Box } from "@mui/system";
 import Link from "next/link";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { filterActions } from "../store/filter-slice";
 
 export default function FilterOption(props) {
   const dispatch = useDispatch();
 
   const [openCollapse, setOpenCollapse] = useState(false);
-  const [checked, setChecked] = useState([0]);
 
-  const handleCheckboxToggle = (option, type) => {
-    const currentIndex = checked.indexOf(option); //returns -1 if not in array
-    const newChecked = [...checked];
-
-    if (currentIndex === -1) {
-      newChecked.push(option);
-      dispatch(filterActions.addFilter({ option, filterType: type }));
-    } else {
-      newChecked.splice(currentIndex, 1);
-      dispatch(filterActions.removeFilter({ option, filterType: type }));
-    }
-
-    setChecked(newChecked);
-  };
+  const checked = useSelector((state) => state.filter.checked);
 
   // creates path for category links
   const categoryPath = (option) => {
@@ -64,7 +50,7 @@ export default function FilterOption(props) {
             <ListItemIcon>
               <Checkbox
                 edge="start"
-                onClick={() => handleCheckboxToggle(option, type)}
+                onClick={() => dispatch(filterActions.toggleFilter({ option, filterType: type }))}
                 checked={checked.indexOf(option) !== -1}
                 tabIndex={-1}
               />
