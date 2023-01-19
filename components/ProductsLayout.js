@@ -5,7 +5,7 @@ import { Breadcrumbs, Typography, Grid } from "@mui/material";
 import utilStyles from "../styles/utils.module.css";
 import Link from "next/link";
 
-export default function ProductsLayout({ children, productInfo, filterSetters }) {
+export default function ProductsLayout({ children, productInfo }) {
   // Breadcrumbs for easy nav
   //   filter
   // category name, sort by, grid/list view, chips
@@ -29,7 +29,7 @@ export default function ProductsLayout({ children, productInfo, filterSetters })
           </Breadcrumbs>
         </Grid>
         <Grid item md={3}>
-          <ProductsFilter products={productInfo.products} />
+          <ProductsFilter />
         </Grid>
         <Grid item md={9}>
           <Grid container spacing={4}>
