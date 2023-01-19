@@ -21,7 +21,7 @@ export default function Jeans({ products }) {
 
   return (
     <>
-      <ProductsLayout productsPage={productInfo}>
+      <ProductsLayout productInfo={productInfo}>
         <Grid container spacing={2}>
           {productCards}
         </Grid>
