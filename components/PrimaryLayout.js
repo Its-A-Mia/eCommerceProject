@@ -2,6 +2,7 @@ import { Container, Box } from "@mui/material";
 import Head from "next/head";
 import NavBar from "./NavBar";
 import AppBarNav from "./AppBarNav";
+import favicon from "../public/favicon.ico";
 
 export default function Layout({ children }) {
   return (
@@ -10,7 +11,7 @@ export default function Layout({ children }) {
         <title>eCommerce Site</title>
         <meta name="description" content="eCommerce practice site" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href={favicon.src} />
       </Head>
       <header>
         <Box display="flex" flexDirection="column">
