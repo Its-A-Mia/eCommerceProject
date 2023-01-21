@@ -1,7 +1,7 @@
 import ProductsLayout from "../../../components/ProductsLayout";
 import { Grid } from "@mui/material";
 import useCreateProductCards from "../../../components/customHooks/useCreateProdCards";
-import shoesBG from "../../../public/images/shoes.png";
+import shoesBG from "../../../public/images/shoes.jpg";
 import axios from "axios";
 import { useState } from "react";
 import useFilter from "../../../components/customHooks/useFilter";

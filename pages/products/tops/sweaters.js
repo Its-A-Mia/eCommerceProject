@@ -1,7 +1,7 @@
 import ProductsLayout from "../../../components/ProductsLayout";
 import { Grid } from "@mui/material";
 import useCreateProductCards from "../../../components/customHooks/useCreateProdCards";
-import sweatersBG from "../../../public/images/sweaters.png";
+import sweatersBG from "../../../public/images/sweaters.jpg";
 import axios from "axios";
 
 export const getStaticProps = async () => {

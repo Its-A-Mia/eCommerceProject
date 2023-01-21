@@ -2,12 +2,12 @@ import { Button, CardMedia, Divider, Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import Link from "next/link";
 
-import tShirtBG from "../../public/images/tshirts.png";
-import hoodiesBG from "../../public/images/hoodies.png";
-import jeansBG from "../../public/images/jeans.png";
-import shoesBG from "../../public/images/shoes.png";
-import sweatersBG from "../../public/images/sweaters.png";
-import sweatpantsBG from "../../public/images/sweatpants.png";
+import tShirtBG from "../../public/images/tshirts.jpg";
+import hoodiesBG from "../../public/images/hoodies.jpg";
+import jeansBG from "../../public/images/jeans.jpg";
+import shoesBG from "../../public/images/shoes.jpg";
+import sweatersBG from "../../public/images/sweaters.jpg";
+import sweatpantsBG from "../../public/images/sweatpants.jpg";
 
 import { useState } from "react";
 import axios from "axios";
