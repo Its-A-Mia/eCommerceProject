@@ -36,7 +36,7 @@ export default async function handler(req, res) {
     // res.json(postResult);
   } else if (req.method === "GET") {
     // grab request queries
-    const { title, category, description, numericFilters } = req.query;
+    const { title, category, description, numericFilters, rating } = req.query;
     // initialize object to store queries
     const queryObject = {};
 
@@ -51,6 +51,10 @@ export default async function handler(req, res) {
 
     if (description) {
       queryObject.description = description;
+    }
+
+    if (rating) {
+      queryObject.rating = Number(rating);
     }
 
     // must parse out numeric queries
