@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { cartActions } from "../../store/cart-slice";
 import useFilter from "./useFilter";
 import { useEffect } from "react";
+import useSort from "./useSort";
 
 export default function useCreateProdCards(products, image) {
   const dispatch = useDispatch();
@@ -25,22 +26,21 @@ export default function useCreateProdCards(products, image) {
 
   const filter = { price: priceFilter, rating: ratingFilter, color: colorFilter };
 
-  const filterResults = useFilter(products, filter);
-
-  if (filterResults.length !== 0) {
-    products = filterResults;
+  // check for filter
+  if (priceFilter.length !== 0 || ratingFilter.length !== 0 || colorFilter.length !== 0) {
+    products = useFilter(products, filter);
   }
 
-  if (
-    filterResults.length === 0 &&
-    (priceFilter.length !== 0 || ratingFilter.length !== 0 || colorFilter.length !== 0)
-  ) {
+  // if nothing is returned when filter is applied, return this
+  if (products.length === 0) {
     return (
       <Grid item xs={12}>
         <Typography>No results match these filters</Typography>
       </Grid>
     );
   }
+
+  products = useSort(products);
 
   const productCards = products.map((product) => (
     <Grid item xs={12} sm={6} md={4} className={productStyles.productCard} key={product.id}>

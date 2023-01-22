@@ -11,10 +11,14 @@ import {
 import WindowIcon from "@mui/icons-material/Window";
 import ViewStreamIcon from "@mui/icons-material/ViewStream";
 import utilStyles from "../styles/utils.module.css";
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { sortActions } from "../store/sort-slice";
 
 export default function ProductsTitle(props) {
-  const [sortBy, setSortBy] = useState("Best Match");
+  const dispatch = useDispatch();
+
+  const sortType = useSelector((state) => state.sort.sortType);
+  console.log(sortType);
 
   // category name, sort by, chips, grid/tile view, showing n1-n^n
 
@@ -37,15 +41,15 @@ export default function ProductsTitle(props) {
               className={utilStyles.selectStyle}
               labelId="sort-by-selection"
               id="sort-by-selection"
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
+              value={sortType}
+              onChange={(e) =>
+                dispatch(sortActions.changeSortType({ newSortType: e.target.value }))
+              }
             >
               <MenuItem value="Best Match">Best Match</MenuItem>
               <MenuItem value="Price (High to Low)">Price (High to Low)</MenuItem>
               <MenuItem value="Price (Low to High)">Price (Low to High)</MenuItem>
               <MenuItem value="Ratings (High to Low)">Ratings (High to Low)</MenuItem>
-              <MenuItem value="Newest">Newest</MenuItem>
-              <MenuItem value="Most Viewed">Most Viewed</MenuItem>
             </Select>
           </FormControl>
         </Grid>
