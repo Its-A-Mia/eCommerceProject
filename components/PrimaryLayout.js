@@ -7,6 +7,8 @@ import Link from "next/link";
 import Image from "next/image";
 import nextjslogo from "../public/images/nextjslogo.png";
 import CopyrightIcon from "@mui/icons-material/Copyright";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
 
 export default function Layout({ children }) {
   return (
@@ -41,9 +43,15 @@ export default function Layout({ children }) {
               justifyContent: "space-between",
             }}
           >
-            <Box display="flex" gap="10px" maxWidth="200px" alignItems="center">
-              <Typography color="white">Built using</Typography>
-              <Link href="https://nextjs.org/" style={{ textDecoration: "none", color: "white" }}>
+            <Box display="flex" gap="10px" maxWidth="210px" alignItems="center">
+              <Typography color="white" fontSize="14px">
+                POWERED BY
+              </Typography>
+              <Link
+                href="https://nextjs.org/"
+                target="_blank"
+                style={{ textDecoration: "none", color: "white" }}
+              >
                 <Image src={nextjslogo.src} width={104} height={50} />
               </Link>
             </Box>
@@ -52,12 +60,23 @@ export default function Layout({ children }) {
               <Typography color="white">Mia Purdun 2022</Typography>
             </Box>
 
-            <Link
-              href="https://github.com/Its-A-Mia/eCommerceProject"
-              style={{ textDecoration: "none", color: "white" }}
-            >
-              My GitHub
-            </Link>
+            <Box display="flex" alignItems="center" gap="20px">
+              {/* <Typography color="white">My GitHub</Typography> */}
+              <Link
+                href="https://www.linkedin.com/in/mia-purdun/"
+                target="_blank"
+                style={{ textDecoration: "none", color: "white" }}
+              >
+                <LinkedInIcon sx={{ color: "white", fontSize: "xxx-large" }} />
+              </Link>
+              <Link
+                href="https://github.com/Its-A-Mia/eCommerceProject"
+                style={{ textDecoration: "none", color: "white" }}
+                target="_blank"
+              >
+                <GitHubIcon sx={{ color: "white", fontSize: "xxx-large" }} />
+              </Link>
+            </Box>
           </Container>
         </Box>
       </footer>
