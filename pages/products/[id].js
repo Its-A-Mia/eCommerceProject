@@ -12,12 +12,12 @@ import {
 } from "@mui/material";
 import utilStyles from "../../styles/utils.module.css";
 
-import tShirtBG from "../../public/images/tshirts.png";
-import hoodiesBG from "../../public/images/hoodies.png";
-import jeansBG from "../../public/images/jeans.png";
-import shoesBG from "../../public/images/shoes.png";
-import sweatersBG from "../../public/images/sweaters.png";
-import sweatpantsBG from "../../public/images/sweatpants.png";
+import tShirtBG from "../../public/images/tshirts.jpg";
+import hoodiesBG from "../../public/images/hoodies.jpg";
+import jeansBG from "../../public/images/jeans.jpg";
+import shoesBG from "../../public/images/shoes.jpg";
+import sweatersBG from "../../public/images/sweaters.jpg";
+import sweatpantsBG from "../../public/images/sweatpants.jpg";
 
 import axios from "axios";
 import Link from "next/link";
