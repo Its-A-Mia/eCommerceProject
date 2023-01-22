@@ -11,6 +11,7 @@ const cartSlice = createSlice({
       state.cartItems = action.payload.itemsArr;
     },
     addToCart(state, action) {
+      action.payload.e.stopPropagation();
       const cartItemLS = JSON.parse(localStorage.getItem(`CART-ITEM ${action.payload.id}`));
 
       // store item if null
