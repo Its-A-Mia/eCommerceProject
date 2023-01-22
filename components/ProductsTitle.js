@@ -7,18 +7,19 @@ import {
   Box,
   Divider,
   MenuItem,
+  IconButton,
 } from "@mui/material";
 import WindowIcon from "@mui/icons-material/Window";
 import ViewStreamIcon from "@mui/icons-material/ViewStream";
 import utilStyles from "../styles/utils.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { sortActions } from "../store/sort-slice";
+import { productViewActions } from "../store/productView-slice";
 
 export default function ProductsTitle(props) {
   const dispatch = useDispatch();
 
   const sortType = useSelector((state) => state.sort.sortType);
-  console.log(sortType);
 
   // category name, sort by, chips, grid/tile view, showing n1-n^n
 
@@ -54,12 +55,16 @@ export default function ProductsTitle(props) {
           </FormControl>
         </Grid>
         <Grid item md={6} display="flex" justifyContent="flex-end" alignItems="center">
-          <WindowIcon fontSize="large" />
+          <IconButton onClick={() => dispatch(productViewActions.setViewToGrid())}>
+            <WindowIcon fontSize="large" />
+          </IconButton>
           <Divider
             orientation="vertical"
             sx={{ padding: "5px", maxHeight: "20px", marginRight: "10px" }}
           />
-          <ViewStreamIcon fontSize="large" />
+          <IconButton onClick={() => dispatch(productViewActions.setViewToList())}>
+            <ViewStreamIcon fontSize="large" />
+          </IconButton>
         </Grid>
       </Grid>
     </>
