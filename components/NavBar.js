@@ -6,6 +6,7 @@ import Image from "next/image";
 import navBarStyles from "../styles/utils.module.css";
 import ShoppingCartSharpIcon from "@mui/icons-material/ShoppingCartSharp";
 import { useState, useEffect } from "react";
+import Search from "./Search";
 
 export default function NavBar(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -14,11 +15,11 @@ export default function NavBar(props) {
     // grab all cookies
     const cookies = document.cookie;
     // parse cookies
-    const parsedCookies = cookies.split(";").map((cookie) => cookie.split("="));
+    const parsedCookies = cookies.split("; ").map((cookie) => cookie.split("="));
 
     let sessionActive = "sessionActive";
 
-    // if userToken is in cookies, grab it
+    // if sessionActive is in cookies, grab it
     for (let i = 0; i < parsedCookies.length; i++) {
       if (parsedCookies[i][0] === sessionActive) {
         sessionActive = parsedCookies[i][1];
@@ -48,14 +49,7 @@ export default function NavBar(props) {
                 <Image src={eShopLogo} width={150} alt="eShop Logo" />
               </Link>
             </Grid>
-            <Grid item md={5} sx={hiddenOnMobile}>
-              <TextField
-                id="filled-basic"
-                label="Enter Item ID"
-                fullWidth
-                sx={{ background: "white" }}
-              />
-            </Grid>
+            <Search />
             <Grid
               item
               xs={5}
@@ -72,7 +66,13 @@ export default function NavBar(props) {
                   {isLoggedIn ? "Profile" : "Sign In / Register"}
                 </Link>
                 <Divider orientation="vertical" flexItem />
-                <Link href="/protected/orders" className={navBarStyles.NavBarlinkStyleAlternative}>
+                <Link
+                  onClick={() =>
+                    (document.cookie = `authRedirectPath=protected/orders;secure;samesite=lax`)
+                  }
+                  href="/protected/orders"
+                  className={navBarStyles.NavBarlinkStyleAlternative}
+                >
                   Orders
                 </Link>
 
