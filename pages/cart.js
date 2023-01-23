@@ -32,6 +32,7 @@ export default function Cart({ products }) {
       localStorage.clear();
       setOrderPlaced(true);
     } catch (error) {
+      document.cookie = `authRedirectPath=cart;secure;samesite=lax`;
       if (error.response.data === "unauthorized") {
         return (window.location = "/auth");
       }

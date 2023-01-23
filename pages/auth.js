@@ -19,6 +19,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { loginActions } from "../store/login-slice";
 import axios from "axios";
+import { getCookie } from "cookies-next";
 
 export default function Auth() {
   const dispatch = useDispatch();
@@ -53,11 +54,19 @@ export default function Auth() {
         password,
       });
 
+      // checks cookie for where to redirect to, then deletes it to reset
+      const authRedirectPath = getCookie("authRedirectPath");
+      // deleteCookie("authRedirectPath");
+
       document.cookie = `sessionActive=true;path=/;secure;samesite=lax;max-age=900`;
 
-      setCreateAcctErr("Login successful! You will be redirected to the home page...");
+      setCreateAcctErr(
+        `Login successful! You will be redirected to the ${
+          authRedirectPath === "protected/orders" ? "orders" : "/" + authRedirectPath
+        } page...`
+      );
       setErrSeverity("success");
-      setTimeout(() => (window.location = "/"), 2000);
+      setTimeout(() => (window.location = `/${authRedirectPath}`), 2000);
     } catch (error) {
       setCreateAcctErr(error.request.response);
       setErrSeverity("error");

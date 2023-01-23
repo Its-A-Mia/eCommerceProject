@@ -1,8 +1,4 @@
-import { useSelector } from "react-redux";
-
-export default function useSort(products) {
-  const sortType = useSelector((state) => state.sort.sortType);
-
+export default function useSort(products, sortType) {
   let sortedProducts = [];
 
   switch (sortType) {

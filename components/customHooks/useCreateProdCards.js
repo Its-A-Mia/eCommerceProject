@@ -20,6 +20,9 @@ import useSort from "./useSort";
 export default function useCreateProdCards(products, image) {
   const dispatch = useDispatch();
 
+  const view = useSelector((state) => state.productView.view);
+  const sortType = useSelector((state) => state.sort.sortType);
+
   const priceFilter = useSelector((state) => state.filter.priceFilter);
   const ratingFilter = useSelector((state) => state.filter.ratingFilter);
   const colorFilter = useSelector((state) => state.filter.colorFilter);
@@ -40,9 +43,7 @@ export default function useCreateProdCards(products, image) {
     );
   }
 
-  const view = useSelector((state) => state.productView.view);
-
-  products = useSort(products);
+  products = useSort(products, sortType);
 
   const productCards =
     view === "grid"
@@ -98,7 +99,7 @@ export default function useCreateProdCards(products, image) {
               </CardActionArea>
               <Button
                 variant="contained"
-                onClick={() => dispatch(cartActions.addToCart({ id: product.id, quantity: 1 }))}
+                onClick={(e) => dispatch(cartActions.addToCart({ id: product.id, quantity: 1, e }))}
                 fullWidth
                 sx={{ alignSelf: "flex-start" }}
               >
