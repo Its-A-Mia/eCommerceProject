@@ -12,10 +12,10 @@ export default function Search() {
 
   const searchDB = async (query) => {
     const results = await axios.get("/api/product", {
-      params: { title: query },
+      params: { title: query, category: query },
     });
 
-    return results.data.allProducts;
+    return results.data.queriedProducts;
   };
 
   useEffect(() => {

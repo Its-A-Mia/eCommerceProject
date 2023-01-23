@@ -51,7 +51,17 @@ export default async function handler(req, res) {
     }
 
     if (category) {
-      queryObject.category = category;
+      queryObject.category = { startsWith: category.toLowerCase() };
+    }
+
+    // for search funtionality
+    if (queryObject.title && queryObject.category) {
+      const queriedProducts = await prisma.product.findMany({
+        where: { OR: [{ title: queryObject.title }, { category: queryObject.category }] },
+      });
+
+      res.json({ queriedProducts });
+      return;
     }
 
     if (description) {
@@ -84,7 +94,7 @@ export default async function handler(req, res) {
 
     // search DB using queryObject to describe parameters
     const allProducts = await prisma.product.findMany({
-      where: queryObject,
+      where: { queryObject },
     });
 
     // return results
