@@ -42,7 +42,12 @@ export default async function handler(req, res) {
 
     // each conditional statement checks for query value, then stores it as a property in queryObject
     if (title) {
-      queryObject.title = title;
+      //
+      const splitArr = title.split(" ");
+      const formattedTitle = splitArr
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");
+      queryObject.title = { startsWith: formattedTitle };
     }
 
     if (category) {
