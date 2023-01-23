@@ -1,6 +1,7 @@
 import { Grid, TextField } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import useDebouncer from "./customHooks/useDebouncer";
 
 export default function Search() {
   const hiddenOnMobile = {
@@ -9,25 +10,25 @@ export default function Search() {
 
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
+  const debouncedQuery = useDebouncer(query);
 
   const searchDB = async (query) => {
     const results = await axios.get("/api/product", {
       params: { title: query, category: query },
     });
-
     return results.data.queriedProducts;
   };
 
   useEffect(() => {
     (async () => {
-      if (!query) {
+      if (!debouncedQuery) {
         return;
       }
-      const data = await searchDB(query);
+      const data = await searchDB(debouncedQuery);
       setSuggestions(data);
       console.log(data);
     })();
-  }, [query]);
+  }, [debouncedQuery]);
 
   return (
     <>
