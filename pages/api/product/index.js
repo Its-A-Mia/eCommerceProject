@@ -94,7 +94,7 @@ export default async function handler(req, res) {
 
     // search DB using queryObject to describe parameters
     const allProducts = await prisma.product.findMany({
-      where: { queryObject },
+      where: queryObject,
     });
 
     // return results
