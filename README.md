@@ -1,4 +1,4 @@
-# eShop: An eCommerceProject Mock Site
+# eShop: An eCommerce Project Mock Site
 eShop demonstrates numerous frontend and backend skills with the utilization of numerous modern web development technology. This includes React, Next.js, Material UI, Redux, Prisma, PostgreSQL, Axios, JSON Web Token and bcrypt. Some unit tests have been created to test functionality using Jest.
 
 ## Fully-Validated Account Creation & Data Manipulation
