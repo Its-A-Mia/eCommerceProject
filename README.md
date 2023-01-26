@@ -1,5 +1,33 @@
 # eShop: An eCommerce Project Mock Site
-eShop demonstrates numerous frontend and backend skills with the utilization of numerous modern web development technology. This includes React, Next.js, Material UI, Redux, Prisma, PostgreSQL, Axios, JSON Web Token and bcrypt. Some unit tests have been created to test functionality using Jest.
+eShop demonstrates numerous frontend and backend skills with the utilization of modern web development technology. 
+
+This includes:
+- React
+- Next.js
+- Material UI
+- Redux
+- Prisma
+- PostgreSQL
+- Axios
+- JSON Web Token
+- bcrypt
+
+Some unit tests have been created to test functionality using Jest.
+
+### Why did I create this project?
+<p>
+I wanted to challenge myself by building a full-stack application from scratch that incorporates various real-world functionalities such as user creation and session authentication to better understand how APIs, databases and browser storage are created, managed and used.
+</p>
+
+### What did I find the most difficult?
+<p>
+Session authentication and persistence was surprisingly tricky, and I found myself redesigning my methods several times to account for security in regards to user information and cookies. This took hours of scouring through the internet to nail down a proper method.
+</p>
+
+### What did I find the most enjoyable?
+<p>
+Learning how to use Prisma to create models and an organized web of data piqued my curiosity greatly, so I more or less lived in the Prisma docs during this process and found that period of constant learning and discovery to be humbling and exciting. The end result is something I'm proud of.
+</p>
 
 ## Fully-Validated Account Creation & Data Manipulation
 
