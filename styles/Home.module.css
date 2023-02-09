@@ -1,9 +1,9 @@
 .categoriesButton {
   height: 233px;
   color: white;
-  font-weight: bold;
+  font-weight: bold !important;
   font-size: larger;
-  background-color: transparent;
+  background-color: transparent !important;
   overflow: hidden;
   transform: all 0.5s;
 }
