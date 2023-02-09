@@ -1,18 +1,14 @@
-import prisma from "../../../lib/prisma";
-import allProducts from "../../../dbFiles/Product.json";
+import prisma from '../../../lib/prisma';
+import allProducts from '../../../dbFiles/Product.json';
 
 export default async function handler(req, res) {
-  if (req.method === "POST") {
-    // create custom script to start website in Docker instance
-
-    // will collect results
-    let postResult = [];
-
+  if (req.method === 'POST') {
     // check if products have been created, otherwise return
     const isSeeded = await prisma.product.findMany({});
 
-    if (isSeeded) {
-      return res.json("Products already seeded.");
+    console.log(isSeeded);
+    if (isSeeded.length !== 0) {
+      return res.json('Products already seeded.');
     }
 
     // create each product in database--should execute only when project is first opened
@@ -27,14 +23,12 @@ export default async function handler(req, res) {
           rating: Number(allProducts[i].rating),
         },
       });
-      // used for debugging
-      postResult.push(createdProduct);
     }
 
     // Seeding completed
-    res.json("Products seeded.");
+    res.json('Products seeded.');
     // res.json(postResult);
-  } else if (req.method === "GET") {
+  } else if (req.method === 'GET') {
     // grab request queries
     const { title, category, description, numericFilters, rating } = req.query;
     // initialize object to store queries
@@ -43,10 +37,8 @@ export default async function handler(req, res) {
     // each conditional statement checks for query value, then stores it as a property in queryObject
     if (title) {
       //
-      const splitArr = title.split(" ");
-      const formattedTitle = splitArr
-        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(" ");
+      const splitArr = title.split(' ');
+      const formattedTitle = splitArr.map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
       queryObject.title = { startsWith: formattedTitle };
     }
 
@@ -75,17 +67,17 @@ export default async function handler(req, res) {
     // must parse out numeric queries
     if (numericFilters) {
       const operatorMap = {
-        ">": "gt",
-        ">=": "gte",
-        "=": "equals",
-        "<": "lt",
-        "<=": "lte",
+        '>': 'gt',
+        '>=': 'gte',
+        '=': 'equals',
+        '<': 'lt',
+        '<=': 'lte',
       };
       const regEx = /\b(>|>=|=|<|<=)\b/g;
       let filters = numericFilters.replace(regEx, (match) => `-${operatorMap[match]}-`);
-      const options = ["price", "rating"];
-      filters = filters.split(",").forEach((item) => {
-        const [field, operator, value] = item.split("-");
+      const options = ['price', 'rating'];
+      filters = filters.split(',').forEach((item) => {
+        const [field, operator, value] = item.split('-');
         if (options.includes(field)) {
           queryObject[field] = { [operator]: Number(value) };
         }
