@@ -1,21 +1,12 @@
-import productStyles from "../../styles/products.module.css";
+import productStyles from '../../styles/products.module.css';
 
-import {
-  Button,
-  Card,
-  CardActionArea,
-  CardContent,
-  CardMedia,
-  Grid,
-  Rating,
-  Typography,
-} from "@mui/material";
-import { Box } from "@mui/system";
-import { useDispatch, useSelector } from "react-redux";
-import { cartActions } from "../../store/cart-slice";
-import useFilter from "./useFilter";
-import { useEffect } from "react";
-import useSort from "./useSort";
+import { Button, Card, CardActionArea, CardContent, CardMedia, Grid, Rating, Typography } from '@mui/material';
+import { Box } from '@mui/system';
+import { useDispatch, useSelector } from 'react-redux';
+import { cartActions } from '../../store/cart-slice';
+import useFilter from './useFilter';
+import { useEffect } from 'react';
+import useSort from './useSort';
 
 export default function useCreateProdCards(products, image) {
   const dispatch = useDispatch();
@@ -29,10 +20,11 @@ export default function useCreateProdCards(products, image) {
 
   const filter = { price: priceFilter, rating: ratingFilter, color: colorFilter };
 
-  // check for filter
-  if (priceFilter.length !== 0 || ratingFilter.length !== 0 || colorFilter.length !== 0) {
-    products = useFilter(products, filter);
-  }
+  products = useFilter(products, filter);
+  products = useSort(products, sortType);
+  console.log(products);
+
+  if (!products) return;
 
   // if nothing is returned when filter is applied, return this
   if (products.length === 0) {
@@ -43,26 +35,17 @@ export default function useCreateProdCards(products, image) {
     );
   }
 
-  products = useSort(products, sortType);
-
   const productCards =
-    view === "grid"
+    view === 'grid'
       ? products.map((product) => (
-          <Grid
-            item
-            xs={12}
-            sm={6}
-            md={4}
-            className={productStyles.productCardGrid}
-            key={product.id}
-          >
-            <Card sx={{ width: "100%", height: "100%", display: "flex", flexDirection: "column" }}>
+          <Grid item xs={12} sm={6} md={4} className={productStyles.productCardGrid} key={product.id}>
+            <Card sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}>
               <CardActionArea
                 sx={{
-                  height: "93%",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "flex-start",
+                  height: '93%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'flex-start',
                 }}
                 onClick={() => (window.location = `/products/${product.id}`)}
               >
@@ -71,29 +54,18 @@ export default function useCreateProdCards(products, image) {
                 </Box>
                 <CardContent
                   sx={{
-                    height: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "space-between",
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
                   }}
                 >
                   <Typography alignSelf="flex-start">{product.title}</Typography>
-                  <Box
-                    width="100%"
-                    display="flex"
-                    flexDirection="column"
-                    alignItems="center"
-                    gap="8px"
-                  >
+                  <Box width="100%" display="flex" flexDirection="column" alignItems="center" gap="8px">
                     <Typography alignSelf="flex-start" fontWeight="bold">
                       ${Number(product.price).toFixed(2)}
                     </Typography>
-                    <Rating
-                      name="read-only"
-                      value={product.rating}
-                      readOnly
-                      sx={{ alignSelf: "flex-start" }}
-                    />
+                    <Rating name="read-only" value={product.rating} readOnly sx={{ alignSelf: 'flex-start' }} />
                   </Box>
                 </CardContent>
               </CardActionArea>
@@ -101,7 +73,7 @@ export default function useCreateProdCards(products, image) {
                 variant="contained"
                 onClick={(e) => dispatch(cartActions.addToCart({ id: product.id, quantity: 1, e }))}
                 fullWidth
-                sx={{ alignSelf: "flex-start" }}
+                sx={{ alignSelf: 'flex-start' }}
               >
                 Add to cart
               </Button>
@@ -110,11 +82,11 @@ export default function useCreateProdCards(products, image) {
         ))
       : products.map((product) => (
           <Grid item xs={12} sm={12} md={12} key={product.id}>
-            <Card sx={{ width: "100%", height: "100%", display: "flex", flexDirection: "column" }}>
+            <Card sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}>
               <CardActionArea
                 sx={{
-                  display: "flex",
-                  justifyContent: "flex-start",
+                  display: 'flex',
+                  justifyContent: 'flex-start',
                 }}
                 onClick={() => (window.location = `/products/${product.id}`)}
               >
@@ -123,39 +95,26 @@ export default function useCreateProdCards(products, image) {
                 </Box>
                 <CardContent
                   sx={{
-                    width: "100%",
-                    height: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "space-between",
+                    width: '100%',
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
                   }}
                 >
                   <Typography alignSelf="flex-start">{product.title}</Typography>
-                  <Box
-                    width="100%"
-                    display="flex"
-                    flexDirection="column"
-                    alignItems="center"
-                    gap="8px"
-                  >
+                  <Box width="100%" display="flex" flexDirection="column" alignItems="center" gap="8px">
                     <Typography alignSelf="flex-start" fontWeight="bold">
                       ${Number(product.price).toFixed(2)}
                     </Typography>
-                    <Rating
-                      name="read-only"
-                      value={product.rating}
-                      readOnly
-                      sx={{ alignSelf: "flex-start" }}
-                    />
+                    <Rating name="read-only" value={product.rating} readOnly sx={{ alignSelf: 'flex-start' }} />
                   </Box>
                   <Box width="100%">
                     <Button
                       variant="contained"
-                      onClick={(e) =>
-                        dispatch(cartActions.addToCart({ id: product.id, quantity: 1, e }))
-                      }
+                      onClick={(e) => dispatch(cartActions.addToCart({ id: product.id, quantity: 1, e }))}
                       fullWidth
-                      sx={{ alignSelf: "flex-start" }}
+                      sx={{ alignSelf: 'flex-start' }}
                     >
                       Add to cart
                     </Button>

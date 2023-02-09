@@ -103,7 +103,7 @@ export default function useCreateOrderCards(orders) {
               <Button variant="contained" onClick={() => handleOrderButton(i)}>
                 Cancel Order
               </Button>
-              <Typography fontWeight="bold">TOTAL: ${orderTotal}</Typography>
+              <Typography fontWeight="bold">TOTAL: ${orderTotal.toFixed(2)}</Typography>
             </Box>
             <Divider />
           </Grid>

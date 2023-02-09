@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 export default function useFilter(products, filter) {
   // filter should specify the category(ies) and filter parameters
   // go through products array and push only the products that match parameter
@@ -5,21 +7,24 @@ export default function useFilter(products, filter) {
 
   let filteredProducts = [];
 
+  if (!products || (filter.price.length === 0 && filter.color.length === 0 && filter.rating.length === 0))
+    return products;
+
   const filterPrice = (product) => {
     for (let option of filter.price) {
-      if (option === "$0 - $100" && Number(product.price) <= 100) {
+      if (option === '$0 - $100' && Number(product.price) <= 100) {
         return product;
       }
-      if (option === "$101 - $200" && Number(product.price) > 100 && Number(product.price) <= 200) {
+      if (option === '$101 - $200' && Number(product.price) > 100 && Number(product.price) <= 200) {
         return product;
       }
-      if (option === "$201 - $300" && Number(product.price) > 200 && Number(product.price) <= 300) {
+      if (option === '$201 - $300' && Number(product.price) > 200 && Number(product.price) <= 300) {
         return product;
       }
-      if (option === "$301 - $400" && Number(product.price) > 300 && Number(product.price) <= 400) {
+      if (option === '$301 - $400' && Number(product.price) > 300 && Number(product.price) <= 400) {
         return product;
       }
-      if (option === "$401 - $500" && Number(product.price) > 400 && Number(product.price) <= 500) {
+      if (option === '$401 - $500' && Number(product.price) > 400 && Number(product.price) <= 500) {
         return product;
       }
     }

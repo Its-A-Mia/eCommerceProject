@@ -1,26 +1,34 @@
-import ProductsLayout from "../../../components/ProductsLayout";
-import { Grid } from "@mui/material";
-import useCreateProductCards from "../../../components/customHooks/useCreateProdCards";
-import shoesBG from "../../../public/images/shoes.jpg";
-import axios from "axios";
-import { useState } from "react";
-import useFilter from "../../../components/customHooks/useFilter";
-import { useSelector } from "react-redux";
+import ProductsLayout from '../../../components/ProductsLayout';
+import { Grid } from '@mui/material';
+import useCreateProductCards from '../../../components/customHooks/useCreateProdCards';
+import shoesBG from '../../../public/images/shoes.jpg';
+import { useState } from 'react';
+import useFetchProducts from '../../../components/customHooks/useFetchProducts';
 
-export const getStaticProps = async () => {
-  const res = await axios.get("http://localhost:3000/api/product", {
-    params: { category: "shoe" },
-  });
-  const data = res.data.allProducts;
+export default function Shoes() {
+  const [products, setProducts] = useState(null);
 
-  return {
-    props: { products: data },
-  };
-};
-export default function Shoes({ products }) {
-  const productInfo = { name: "Shoes", path: "Bottoms" };
+  const productInfo = { name: 'Shoes', path: 'Bottoms' };
+
+  const data = useFetchProducts({ category: 'shoe' });
+
+  if (data) {
+    if (!products) setProducts(data);
+  }
 
   const productCards = useCreateProductCards(products, shoesBG);
+
+  if (!products) {
+    return (
+      <>
+        <ProductsLayout productInfo={productInfo}>
+          <Grid container spacing={2}>
+            <p>Loading products...</p>
+          </Grid>
+        </ProductsLayout>
+      </>
+    );
+  }
 
   return (
     <>

@@ -1,24 +1,34 @@
-import ProductsLayout from "../../../components/ProductsLayout";
-import { Grid } from "@mui/material";
-import useCreateProductCards from "../../../components/customHooks/useCreateProdCards";
-import tShirtBG from "../../../public/images/tshirts.jpg";
-import axios from "axios";
+import ProductsLayout from '../../../components/ProductsLayout';
+import { Grid } from '@mui/material';
+import useCreateProductCards from '../../../components/customHooks/useCreateProdCards';
+import tShirtBG from '../../../public/images/tshirts.jpg';
+import useFetchProducts from '../../../components/customHooks/useFetchProducts';
+import { useState } from 'react';
 
-export const getStaticProps = async () => {
-  const res = await axios.get("http://localhost:3000/api/product", {
-    params: { category: "shirt" },
-  });
-  const data = res.data.allProducts;
+export default function TShirts() {
+  const [products, setProducts] = useState(null);
 
-  return {
-    props: { products: data },
-  };
-};
+  const productInfo = { name: 'Shirts', path: 'Tops' };
 
-export default function TShirts({ products }) {
-  const productInfo = { name: "Shirts", path: "Tops" };
+  const data = useFetchProducts({ category: 'shirt' });
+
+  if (data) {
+    if (!products) setProducts(data);
+  }
 
   const productCards = useCreateProductCards(products, tShirtBG);
+
+  if (!products) {
+    return (
+      <>
+        <ProductsLayout productInfo={productInfo}>
+          <Grid container spacing={2}>
+            <p>Loading products...</p>
+          </Grid>
+        </ProductsLayout>
+      </>
+    );
+  }
 
   return (
     <>

@@ -9,25 +9,25 @@ import {
   Paper,
   Rating,
   Typography,
-} from "@mui/material";
-import utilStyles from "../../styles/utils.module.css";
+} from '@mui/material';
+import utilStyles from '../../styles/utils.module.css';
 
-import tShirtBG from "../../public/images/tshirts.jpg";
-import hoodiesBG from "../../public/images/hoodies.jpg";
-import jeansBG from "../../public/images/jeans.jpg";
-import shoesBG from "../../public/images/shoes.jpg";
-import sweatersBG from "../../public/images/sweaters.jpg";
-import sweatpantsBG from "../../public/images/sweatpants.jpg";
+import tShirtBG from '../../public/images/tshirts.jpg';
+import hoodiesBG from '../../public/images/hoodies.jpg';
+import jeansBG from '../../public/images/jeans.jpg';
+import shoesBG from '../../public/images/shoes.jpg';
+import sweatersBG from '../../public/images/sweaters.jpg';
+import sweatpantsBG from '../../public/images/sweatpants.jpg';
 
-import axios from "axios";
-import Link from "next/link";
-import { Add, Remove } from "@mui/icons-material";
-import { useDispatch } from "react-redux";
-import { cartActions } from "../../store/cart-slice";
-import { useState } from "react";
+import axios from 'axios';
+import Link from 'next/link';
+import { Add, Remove } from '@mui/icons-material';
+import { useDispatch } from 'react-redux';
+import { cartActions } from '../../store/cart-slice';
+import { useState } from 'react';
 
 export const getServerSideProps = async (ctx) => {
-  const response = await axios.get(`http://localhost:3000/api/product/${ctx.query.id}`);
+  const response = await axios.get(`http://localhost:8080/api/product/${ctx.query.id}`);
 
   return {
     props: { product: response.data },
@@ -52,35 +52,31 @@ export default function SingleProduct({ product }) {
   let productTopBotPath = null;
 
   // for breadcrumbs path
-  if (
-    product.category === "shirt" ||
-    product.category === "sweater" ||
-    product.category === "hoodie"
-  ) {
-    productTopBotPath = "Tops";
+  if (product.category === 'shirt' || product.category === 'sweater' || product.category === 'hoodie') {
+    productTopBotPath = 'Tops';
   } else {
-    productTopBotPath = "Bottoms";
+    productTopBotPath = 'Bottoms';
   }
 
   // decide image for order item
   function itemImage(category) {
     switch (category) {
-      case "shirt":
+      case 'shirt':
         return tShirtBG.src;
 
-      case "sweater":
+      case 'sweater':
         return sweatersBG.src;
 
-      case "hoodie":
+      case 'hoodie':
         return hoodiesBG.src;
 
-      case "sweatpants":
+      case 'sweatpants':
         return sweatpantsBG.src;
 
-      case "jeans":
+      case 'jeans':
         return jeansBG.src;
 
-      case "shoe":
+      case 'shoe':
         return shoesBG.src;
     }
   }
@@ -88,7 +84,7 @@ export default function SingleProduct({ product }) {
   return (
     <Grid container spacing={3}>
       <Grid item xs={12} md={12}>
-        <Breadcrumbs sx={{ display: "flex", alignItems: "center" }}>
+        <Breadcrumbs sx={{ display: 'flex', alignItems: 'center' }}>
           <Link href="/" className={utilStyles.BreadcrumbsLinkStyle}>
             Home
           </Link>
@@ -97,13 +93,13 @@ export default function SingleProduct({ product }) {
           </Link>
           <Link
             href={
-              category === "jeans" || category === "sweatpants"
+              category === 'jeans' || category === 'sweatpants'
                 ? `/products/${productTopBotPath.toLowerCase()}/${category}`
                 : `/products/${productTopBotPath.toLowerCase()}/${category}s`
             }
             className={utilStyles.BreadcrumbsLinkStyle}
           >
-            {category === "jeans" || category === "sweatpants"
+            {category === 'jeans' || category === 'sweatpants'
               ? `${category[0].toUpperCase()}${category.substring(1)}`
               : `${category[0].toUpperCase()}${category.substring(1)}s`}
           </Link>
@@ -124,13 +120,13 @@ export default function SingleProduct({ product }) {
           <Paper
             component="form"
             sx={{
-              position: "relative",
-              p: "2px 2px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              width: "100%",
-              borderRadius: "5px",
+              position: 'relative',
+              p: '2px 2px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              width: '100%',
+              borderRadius: '5px',
             }}
           >
             <IconButton onClick={() => handleAddOrSubToCart(-1)}>
@@ -142,9 +138,9 @@ export default function SingleProduct({ product }) {
               type="text"
               value={cartQuantity}
               sx={{
-                "&.MuiInputBase-root": {
-                  "& input": {
-                    textAlign: "center",
+                '&.MuiInputBase-root': {
+                  '& input': {
+                    textAlign: 'center',
                   },
                 },
               }}
@@ -156,11 +152,9 @@ export default function SingleProduct({ product }) {
           </Paper>
           <Button
             variant="contained"
-            onClick={() =>
-              dispatch(cartActions.addToCart({ id: product.id, quantity: cartQuantity }))
-            }
+            onClick={() => dispatch(cartActions.addToCart({ id: product.id, quantity: cartQuantity }))}
             fullWidth
-            sx={{ alignSelf: "flex-start" }}
+            sx={{ alignSelf: 'flex-start' }}
           >
             Add to cart
           </Button>

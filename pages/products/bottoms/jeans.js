@@ -1,23 +1,34 @@
-import ProductsLayout from "../../../components/ProductsLayout";
-import { Grid } from "@mui/material";
-import useCreateProductCards from "../../../components/customHooks/useCreateProdCards";
-import jeansBG from "../../../public/images/jeans.jpg";
-import axios from "axios";
+import ProductsLayout from '../../../components/ProductsLayout';
+import { Grid } from '@mui/material';
+import useCreateProductCards from '../../../components/customHooks/useCreateProdCards';
+import jeansBG from '../../../public/images/jeans.jpg';
+import useFetchProducts from '../../../components/customHooks/useFetchProducts';
+import { useState } from 'react';
 
-export const getStaticProps = async () => {
-  const res = await axios.get("http://localhost:3000/api/product", {
-    params: { category: "jeans" },
-  });
-  const data = res.data.allProducts;
+export default function Jeans() {
+  const [products, setProducts] = useState(null);
 
-  return {
-    props: { products: data },
-  };
-};
-export default function Jeans({ products }) {
-  const productInfo = { name: "Jeans", path: "Bottoms" };
+  const productInfo = { name: 'Jeans', path: 'Bottoms' };
+
+  const data = useFetchProducts({ category: 'jeans' });
+
+  if (data) {
+    if (!products) setProducts(data);
+  }
 
   const productCards = useCreateProductCards(products, jeansBG);
+
+  if (!products) {
+    return (
+      <>
+        <ProductsLayout productInfo={productInfo}>
+          <Grid container spacing={2}>
+            <p>Loading products...</p>
+          </Grid>
+        </ProductsLayout>
+      </>
+    );
+  }
 
   return (
     <>

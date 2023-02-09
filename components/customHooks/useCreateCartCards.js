@@ -1,27 +1,18 @@
-import { Add, Remove } from "@mui/icons-material";
+import { Add, Remove } from '@mui/icons-material';
 
-import tShirtBG from "../../public/images/tshirts.jpg";
-import hoodiesBG from "../../public/images/hoodies.jpg";
-import jeansBG from "../../public/images/jeans.jpg";
-import shoesBG from "../../public/images/shoes.jpg";
-import sweatersBG from "../../public/images/sweaters.jpg";
-import sweatpantsBG from "../../public/images/sweatpants.jpg";
+import tShirtBG from '../../public/images/tshirts.jpg';
+import hoodiesBG from '../../public/images/hoodies.jpg';
+import jeansBG from '../../public/images/jeans.jpg';
+import shoesBG from '../../public/images/shoes.jpg';
+import sweatersBG from '../../public/images/sweaters.jpg';
+import sweatpantsBG from '../../public/images/sweatpants.jpg';
 
-import {
-  Button,
-  CardMedia,
-  Divider,
-  Grid,
-  IconButton,
-  InputBase,
-  Paper,
-  Typography,
-} from "@mui/material";
-import { Box } from "@mui/system";
-import Link from "next/link";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { cartActions } from "../../store/cart-slice";
+import { Button, CardMedia, Divider, Grid, IconButton, InputBase, Paper, Typography } from '@mui/material';
+import { Box } from '@mui/system';
+import Link from 'next/link';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { cartActions } from '../../store/cart-slice';
 
 export default function useCreateCartCards(products) {
   // set up redux dispatch
@@ -47,6 +38,8 @@ export default function useCreateCartCards(products) {
     }
   });
 
+  if (!products) return;
+
   // if cart is empty, return
   if (!cartItems) {
     return;
@@ -54,22 +47,22 @@ export default function useCreateCartCards(products) {
 
   function itemImage(category) {
     switch (category) {
-      case "shirt":
+      case 'shirt':
         return tShirtBG.src;
 
-      case "sweater":
+      case 'sweater':
         return sweatersBG.src;
 
-      case "hoodie":
+      case 'hoodie':
         return hoodiesBG.src;
 
-      case "sweatpants":
+      case 'sweatpants':
         return sweatpantsBG.src;
 
-      case "jeans":
+      case 'jeans':
         return jeansBG.src;
 
-      case "shoe":
+      case 'shoe':
         return shoesBG.src;
     }
   }
@@ -77,9 +70,7 @@ export default function useCreateCartCards(products) {
   function subtotal() {
     let sum = 0;
     for (let i = 0; i < cartItems.length; i++) {
-      sum +=
-        products.find((product) => product.id === cartItems[i].productID).price *
-        cartItems[i].quantity;
+      sum += products.find((product) => product.id === cartItems[i].productID).price * cartItems[i].quantity;
     }
     return sum;
   }
@@ -89,7 +80,7 @@ export default function useCreateCartCards(products) {
     cartItems: cartItems,
     subtotal: subtotal().toFixed(2),
     cards: cartItems.map((item) => (
-      <li key={item.productID} style={{ listStyle: "none" }}>
+      <li key={item.productID} style={{ listStyle: 'none' }}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={7} height="100%">
             <Grid container spacing={2}>
@@ -97,9 +88,7 @@ export default function useCreateCartCards(products) {
                 <Box width="140px">
                   <CardMedia
                     component="img"
-                    image={itemImage(
-                      products.find((product) => product.id === item.productID).category
-                    )}
+                    image={itemImage(products.find((product) => product.id === item.productID).category)}
                   />
                 </Box>
                 <Box display="flex" flexDirection="column" justifyContent="space-between">
@@ -110,10 +99,7 @@ export default function useCreateCartCards(products) {
                     Item {products.find((product) => product.id === item.productID).id}
                   </Typography> */}
                   <Typography>
-                    $
-                    {Number(
-                      products.find((product) => product.id === item.productID).price
-                    ).toFixed(2)}
+                    ${Number(products.find((product) => product.id === item.productID).price).toFixed(2)}
                   </Typography>
                 </Box>
               </Grid>
@@ -122,34 +108,28 @@ export default function useCreateCartCards(products) {
                   <Paper
                     component="form"
                     sx={{
-                      p: "2px 2px",
-                      display: "flex",
-                      alignItems: "center",
+                      p: '2px 2px',
+                      display: 'flex',
+                      alignItems: 'center',
                       width: 130,
-                      borderRadius: "20px",
+                      borderRadius: '20px',
                     }}
                   >
-                    <IconButton
-                      onClick={() =>
-                        dispatch(cartActions.removeOneCartItem({ id: item.productID }))
-                      }
-                    >
+                    <IconButton onClick={() => dispatch(cartActions.removeOneCartItem({ id: item.productID }))}>
                       <Remove />
                     </IconButton>
                     <InputBase
                       type="text"
                       value={item.quantity}
                       sx={{
-                        "&.MuiInputBase-root": {
-                          "& input": {
-                            textAlign: "center",
+                        '&.MuiInputBase-root': {
+                          '& input': {
+                            textAlign: 'center',
                           },
                         },
                       }}
                     ></InputBase>
-                    <IconButton
-                      onClick={() => dispatch(cartActions.addOneToCartItem({ id: item.productID }))}
-                    >
+                    <IconButton onClick={() => dispatch(cartActions.addOneToCartItem({ id: item.productID }))}>
                       <Add />
                     </IconButton>
                   </Paper>
@@ -164,10 +144,9 @@ export default function useCreateCartCards(products) {
                   <Typography>Total</Typography>
                   <Typography>
                     $
-                    {(
-                      Number(products.find((product) => product.id === item.productID).price) *
-                      item.quantity
-                    ).toFixed(2)}
+                    {(Number(products.find((product) => product.id === item.productID).price) * item.quantity).toFixed(
+                      2
+                    )}
                   </Typography>
                 </Box>
               </Grid>
@@ -177,8 +156,8 @@ export default function useCreateCartCards(products) {
             <Button
               variant="contained"
               sx={{
-                "&.MuiButton-root": {
-                  cursor: "default",
+                '&.MuiButton-root': {
+                  cursor: 'default',
                 },
               }}
               fontSize="small"
@@ -187,7 +166,7 @@ export default function useCreateCartCards(products) {
             </Button>
           </Grid>
           <Grid item xs={12}>
-            <Divider sx={{ marginBottom: "15px" }} />
+            <Divider sx={{ marginBottom: '15px' }} />
           </Grid>
         </Grid>
       </li>
