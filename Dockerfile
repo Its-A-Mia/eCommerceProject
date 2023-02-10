@@ -16,6 +16,8 @@ ENV JWT_SECRET="thiswouldbeasecretandh264encryptionattheveryleastnormally"
 
 ENV DATABASE_URL="postgresql://postgres:postgres@postgres:5432/eShop?schema=public"
 
+RUN npm run build
+
 EXPOSE 8080
 
 CMD ["bin/startup.sh"]
