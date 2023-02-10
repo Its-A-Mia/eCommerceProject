@@ -14,6 +14,18 @@ This includes:
 
 Some unit tests have been created to test functionality using Jest.
 
+#
+### Building this app locally using Docker
+
+Clone this repository, then while in a terminal and the directory run:
+
+```
+docker compose up
+```
+
+After some time, the app will spin up and be available on localhost:3000.
+#
+
 ### Why did I create this project?
 <p>
 I wanted to challenge myself by building a full-stack application from scratch that incorporates various real-world functionalities such as user creation and session authentication to better understand how APIs, databases and browser storage are created, managed and used.
