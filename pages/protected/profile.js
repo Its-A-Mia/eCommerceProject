@@ -11,7 +11,7 @@ import AccountSecurity from '../../components/AccountSecurity';
 
 // grab user information
 export const getServerSideProps = async (ctx) => {
-  const res = await axios.get('http://localhost:3000/api/user', {
+  const res = await axios.get('http://localhost:8080/api/user', {
     data: { cookies: ctx.req.cookies },
   });
   const data = res.data;

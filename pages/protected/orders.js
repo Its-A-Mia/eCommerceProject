@@ -4,7 +4,7 @@ import useCreateOrderCards from '../../components/customHooks/useCreateOrderCard
 import utilStyles from '../../styles/utils.module.css';
 
 export const getServerSideProps = async (ctx) => {
-  const res = await axios.get('http://localhost:3000/api/orders', {
+  const res = await axios.get('http://localhost:8080/api/orders', {
     data: { cookies: ctx.req.cookies },
   });
   const data = res.data;

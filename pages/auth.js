@@ -19,7 +19,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginActions } from '../store/login-slice';
 import axios from 'axios';
-import { getCookie } from 'cookies-next';
+import { deleteCookie, getCookie } from 'cookies-next';
 
 export default function Auth() {
   const dispatch = useDispatch();
@@ -42,6 +42,15 @@ export default function Auth() {
   const [createAcctErr, setCreateAcctErr] = useState(null);
   const [errSeverity, setErrSeverity] = useState(null);
 
+  const decideRedirectPath = (authRedirectPath) => {
+    authRedirectPath = getCookie('authRedirectPath');
+    deleteCookie('authRedirectPath');
+
+    if (!authRedirectPath) return { path: '', pathName: 'home' };
+    if (authRedirectPath === 'protected/orders') return { path: 'protected/orders', pathName: 'orders' };
+    if (authRedirectPath === 'cart') return { path: 'cart', pathName: 'cart' };
+  };
+
   // post login request
   const handleLogin = async () => {
     if (emailValidated === false || passwordValidated === false) {
@@ -54,24 +63,15 @@ export default function Auth() {
         password,
       });
 
-      let authRedirectPath = null;
-      // checks cookie for where to redirect to, then deletes it to reset
-      if (getCookie('authRedirectPath')) {
-        authRedirectPath = getCookie('authRedirectPath');
-      }
-      // deleteCookie('authRedirectPath');
+      const authRedirectPath = decideRedirectPath();
 
       document.cookie = `sessionActive=true;path=/;secure;samesite=lax;max-age=900`;
 
-      setCreateAcctErr(
-        `Login successful! You will be redirected to the ${
-          authRedirectPath === 'protected/orders' ? 'orders' : '/' + authRedirectPath
-        } page...`
-      );
+      setCreateAcctErr(`Login successful! You will be redirected to the ${authRedirectPath.pathName} page...`);
       setErrSeverity('success');
-      setTimeout(() => (window.location = `/${authRedirectPath}`), 2000);
+      setTimeout(() => (window.location = `/${authRedirectPath.path}`), 2000);
     } catch (error) {
-      setCreateAcctErr(error.request.response);
+      setCreateAcctErr(error.request?.response);
       setErrSeverity('error');
     }
   };

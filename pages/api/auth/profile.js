@@ -1,5 +1,6 @@
-import jwt_decode from "jwt-decode";
-import { comparePassAndHash, compareUserIDAndHashID } from "../../../lib/checkHash";
+import prisma from '../../../lib/prisma';
+import jwt_decode from 'jwt-decode';
+import { comparePassAndHash, compareUserIDAndHashID } from '../../../lib/checkHash';
 
 export default async function handler(req, res) {
   const { password } = req.body;
@@ -19,7 +20,7 @@ export default async function handler(req, res) {
   try {
     await compareUserIDAndHashID(session.userId, decodedToken.id);
   } catch (error) {
-    console.log("UserID is not valid");
+    console.log('UserID is not valid');
     return;
   }
 
@@ -33,9 +34,9 @@ export default async function handler(req, res) {
 
   // return error if password comparison fails
   if (!compareResult) {
-    res.status(400).send("Incorrect Password.");
+    res.status(400).send('Incorrect Password.');
     return;
   }
 
-  res.json("");
+  res.json('');
 }

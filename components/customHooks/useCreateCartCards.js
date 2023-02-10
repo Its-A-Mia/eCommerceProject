@@ -38,12 +38,7 @@ export default function useCreateCartCards(products) {
     }
   });
 
-  if (!products) return;
-
-  // if cart is empty, return
-  if (!cartItems) {
-    return;
-  }
+  if (products.length === 0 || !products || !cartItems || cartItems === 0) return;
 
   function itemImage(category) {
     switch (category) {
