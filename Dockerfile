@@ -6,15 +6,13 @@ COPY package*.json ./
 
 COPY prisma ./prisma/
 
-COPY .env ./
-
 RUN npm install
-
-RUN npx prisma generate
 
 COPY . .
 
 ENV PORT=8080
+
+ENV JWT_SECRET="thiswouldbeasecretandh264encryptionattheveryleastnormally"
 
 ENV DATABASE_URL="postgresql://postgres:postgres@postgres:5432/eShop?schema=public"
 
