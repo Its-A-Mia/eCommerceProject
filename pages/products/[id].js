@@ -27,7 +27,7 @@ import { cartActions } from '../../store/cart-slice';
 import { useState } from 'react';
 
 export const getServerSideProps = async (ctx) => {
-  const response = await axios.get(`http://localhost:8080/api/product/${ctx.query.id}`);
+  const response = await axios.get(`http://localhost:3000/api/product/${ctx.query.id}`);
 
   return {
     props: { product: response.data },

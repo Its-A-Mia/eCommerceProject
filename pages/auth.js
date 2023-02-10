@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Box } from "@mui/system";
+import { useState } from 'react';
+import { Box } from '@mui/system';
 import {
   Typography,
   TextField,
@@ -11,15 +11,15 @@ import {
   InputLabel,
   FormHelperText,
   Alert,
-} from "@mui/material";
-import headerStyles from "../styles/utils.module.css";
-import Link from "next/link";
-import Button from "@mui/material/Button";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { useDispatch, useSelector } from "react-redux";
-import { loginActions } from "../store/login-slice";
-import axios from "axios";
-import { getCookie } from "cookies-next";
+} from '@mui/material';
+import headerStyles from '../styles/utils.module.css';
+import Link from 'next/link';
+import Button from '@mui/material/Button';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginActions } from '../store/login-slice';
+import axios from 'axios';
+import { getCookie } from 'cookies-next';
 
 export default function Auth() {
   const dispatch = useDispatch();
@@ -49,27 +49,30 @@ export default function Auth() {
     }
 
     try {
-      const { data } = await axios.post("/api/auth", {
+      const { data } = await axios.post('/api/auth', {
         email,
         password,
       });
 
+      let authRedirectPath = null;
       // checks cookie for where to redirect to, then deletes it to reset
-      const authRedirectPath = getCookie("authRedirectPath");
-      // deleteCookie("authRedirectPath");
+      if (getCookie('authRedirectPath')) {
+        authRedirectPath = getCookie('authRedirectPath');
+      }
+      // deleteCookie('authRedirectPath');
 
       document.cookie = `sessionActive=true;path=/;secure;samesite=lax;max-age=900`;
 
       setCreateAcctErr(
         `Login successful! You will be redirected to the ${
-          authRedirectPath === "protected/orders" ? "orders" : "/" + authRedirectPath
+          authRedirectPath === 'protected/orders' ? 'orders' : '/' + authRedirectPath
         } page...`
       );
-      setErrSeverity("success");
+      setErrSeverity('success');
       setTimeout(() => (window.location = `/${authRedirectPath}`), 2000);
     } catch (error) {
       setCreateAcctErr(error.request.response);
-      setErrSeverity("error");
+      setErrSeverity('error');
     }
   };
 
@@ -98,7 +101,7 @@ export default function Auth() {
             </InputLabel>
             <OutlinedInput
               id="filled-adornment-password"
-              type={showPassword ? "text" : "password"}
+              type={showPassword ? 'text' : 'password'}
               label="Password"
               onKeyUp={(e) => setPassword(e.target.value)}
               onBlur={() => dispatch(loginActions.passwordValidation({ password }))}
