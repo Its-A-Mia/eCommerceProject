@@ -17,6 +17,10 @@ Some unit tests have been created to test functionality using Jest.
 #
 ### Building this app locally using Docker
 
+Please ensure /bin/startup.sh is formatted to use LF line endings, otherwise the scripts will not execute. You can adjust this in vscode easily: 
+
+<img src="https://github.com/Its-A-Mia/eCommerceExternalData/blob/main/SetLF.PNG" width="50%"/>
+
 Clone this repository, then while in a terminal and the directory run:
 
 ```
