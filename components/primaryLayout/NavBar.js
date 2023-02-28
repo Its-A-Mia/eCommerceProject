@@ -1,11 +1,10 @@
-import { Grid, Box, Divider, TextField, Icon } from '@mui/material';
+import { Grid, Box, Divider } from '@mui/material';
 import { Container } from '@mui/system';
-import eShopLogo from '../public/images/eShop.png';
+import eShopLogo from '../../public/images/eShop.png';
 import Link from 'next/link';
 import Image from 'next/image';
-import navBarStyles from '../styles/utils.module.css';
+import navBarStyles from '../../styles/utils.module.css';
 import ShoppingCartSharpIcon from '@mui/icons-material/ShoppingCartSharp';
-import MenuIcon from '@mui/icons-material/Menu';
 import { useState, useEffect } from 'react';
 import Search from './Search';
 
@@ -49,7 +48,7 @@ export default function NavBar(props) {
       <Box bgcolor="#EEEEEE">
         <Container>
           <Grid container spacing={3} paddingTop="20px" paddingBottom="20px">
-            <Grid item xs={6} sm={4} md={3} lg={2} display="flex" justifyContent="left" alignItems="center">
+            <Grid item xs={5} sm={3} md={2} lg={2} display="flex" justifyContent="left" alignItems="center">
               <Link href="/">
                 <Image src={eShopLogo} width={150} alt="eShop Logo" />
               </Link>
@@ -72,25 +71,17 @@ export default function NavBar(props) {
                   Orders
                 </Link>
                 <Divider orientation="vertical" flexItem />
-                <Box display="flex" alignItems="center" justifyContent="center">
-                  <ShoppingCartSharpIcon fontSize="small" sx={{ color: '#5d82b3' }} />
-                  <Link href="/cart" className={navBarStyles.NavBarlinkStyleAlternative}>
+                <Box>
+                  <Link
+                    href="/cart"
+                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                    className={navBarStyles.NavBarlinkStyleAlternative}
+                  >
+                    <ShoppingCartSharpIcon fontSize="small" sx={{ color: '#5d82b3' }} />
                     Cart
                   </Link>
                 </Box>
               </Box>
-            </Grid>
-            <Grid
-              item
-              xs={6}
-              sm={2}
-              md={3}
-              display="flex"
-              justifyContent="flex-end"
-              alignItems="center"
-              sx={visibleOnMobile}
-            >
-              <MenuIcon sx={{ fontSize: '2.5rem' }} />
             </Grid>
           </Grid>
         </Container>

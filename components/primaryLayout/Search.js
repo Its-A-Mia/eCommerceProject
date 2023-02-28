@@ -3,7 +3,7 @@ import { Box } from '@mui/system';
 import axios from 'axios';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import useDebouncer from './customHooks/useDebouncer';
+import useDebouncer from '../customHooks/useDebouncer';
 
 export default function Search() {
   const hiddenOnMobile = {
@@ -44,7 +44,7 @@ export default function Search() {
 
   return (
     <>
-      <Grid item sm={6} md={6} lg={5} sx={hiddenOnMobile}>
+      <Grid item xs={7} sm={9} md={6} lg={5}>
         <Box width="100%" position="relative" zIndex="1">
           <TextField
             onFocus={() => setShowSuggestions('block')}

@@ -1,11 +1,11 @@
-import { Container, Box, Typography, Icon } from '@mui/material';
+import { Container, Box, Typography } from '@mui/material';
 import Head from 'next/head';
 import NavBar from './NavBar';
 import AppBarNav from './AppBarNav';
-import favicon from '../public/favicon.ico';
+import favicon from '../../public/favicon.ico';
 import Link from 'next/link';
 import Image from 'next/image';
-import nextjslogo from '../public/images/nextjslogo.png';
+import nextjslogo from '../../public/images/nextjslogo.png';
 import CopyrightIcon from '@mui/icons-material/Copyright';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';

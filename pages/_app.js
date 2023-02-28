@@ -1,7 +1,7 @@
-import { Provider, useSelector } from "react-redux";
-import PrimaryLayout from "../components/PrimaryLayout";
-import "../styles/globals.css";
-import store from "../store";
+import { Provider } from 'react-redux';
+import PrimaryLayout from '../components/primaryLayout/PrimaryLayout';
+import '../styles/globals.css';
+import store from '../store';
 
 export default function App({ Component, pageProps }) {
   const renderWithLayout =
