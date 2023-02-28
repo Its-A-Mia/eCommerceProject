@@ -43,54 +43,51 @@ export default function Search() {
   }, [debouncedQuery]);
 
   return (
-    <>
-      <Grid item xs={7} sm={9} md={6} lg={5}>
-        <Box width="100%" position="relative" zIndex="1">
-          <TextField
-            onFocus={() => setShowSuggestions('block')}
-            onChange={(e) => setQuery(e.target.value)}
-            onBlur={() => setTimeout(() => setShowSuggestions('none'), 100)} //ensures links will work
-            id="filled-basic"
-            label="Enter Item ID"
-            fullWidth
-            sx={{ background: 'white' }}
-          />
-          {suggestions.length !== 0 ? (
-            <Box
-              display={showSuggestions}
-              position="absolute"
-              top="100%"
-              width="100%"
-              maxHeight="440px"
-              gap="18px"
-              pb="8px"
-              border="solid gray 1px"
-              borderRadius="5px"
-              sx={{ background: 'white', overflowY: 'scroll' }}
-            >
-              {suggestions.map((suggestion) => (
-                <Box pl="8px" key={suggestion.id}>
-                  {suggestion.id ? (
-                    <Link href={`/products/${suggestion.id}`} style={{ textDecoration: 'none', color: '#5D82B3' }}>
-                      <Typography>{suggestion.title}</Typography>
-                      <Typography fontSize="small" color="gray">
-                        {suggestion.category}
-                      </Typography>
-                    </Link>
-                  ) : (
-                    <>
-                      <Typography>{suggestion.title}</Typography>
-                      <Typography fontSize="small" color="gray">
-                        {suggestion.category}
-                      </Typography>
-                    </>
-                  )}
-                </Box>
-              ))}
+    <Box width="100%" margin="0 auto" position="relative" zIndex="1">
+      <TextField
+        onFocus={() => setShowSuggestions('block')}
+        onChange={(e) => setQuery(e.target.value)}
+        onBlur={() => setTimeout(() => setShowSuggestions('none'), 100)} //ensures links will work
+        id="filled-basic"
+        label="Enter Item ID"
+        fullWidth
+        sx={{ background: 'white' }}
+      />
+      {/* results from search query */}
+      {suggestions.length !== 0 ? (
+        <Box
+          display={showSuggestions}
+          position="absolute"
+          top="100%"
+          width="100%"
+          maxHeight="440px"
+          gap="18px"
+          pb="8px"
+          border="solid gray 1px"
+          borderRadius="5px"
+          sx={{ background: 'white', overflowY: 'scroll' }}
+        >
+          {suggestions.map((suggestion) => (
+            <Box pl="8px" key={suggestion.id}>
+              {suggestion.id ? (
+                <Link href={`/products/${suggestion.id}`} style={{ textDecoration: 'none', color: '#5D82B3' }}>
+                  <Typography>{suggestion.title}</Typography>
+                  <Typography fontSize="small" color="gray">
+                    {suggestion.category}
+                  </Typography>
+                </Link>
+              ) : (
+                <>
+                  <Typography>{suggestion.title}</Typography>
+                  <Typography fontSize="small" color="gray">
+                    {suggestion.category}
+                  </Typography>
+                </>
+              )}
             </Box>
-          ) : null}
+          ))}
         </Box>
-      </Grid>
-    </>
+      ) : null}
+    </Box>
   );
 }

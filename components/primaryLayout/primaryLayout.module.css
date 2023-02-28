@@ -1,0 +1,38 @@
+/* ===================
+        NavOptions 
+    ===================*/
+
+.NavOptionsContainer {
+  display: flex;
+  gap: 2em;
+}
+
+.NavBarlinkStyleAlternative {
+  text-decoration: none;
+  color: var(--font-color);
+  font-size: 1rem;
+}
+
+.NavBarlinkStyleAlternative:hover {
+  text-decoration: underline;
+}
+
+.NavBarCartLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 600px) {
+  .NavBarlinkStyleAlternative {
+    font-size: 0.825rem;
+  }
+}
+
+/* ===================
+          Logo 
+    ===================*/
+
+.NavBarLogo {
+  width: 150px;
+}

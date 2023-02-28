@@ -26,16 +26,6 @@
   text-decoration: underline;
 }
 
-.NavBarlinkStyleAlternative {
-  text-decoration: none;
-  color: var(--font-color);
-  font-size: 1rem;
-}
-
-.NavBarlinkStyleAlternative:hover {
-  text-decoration: underline;
-}
-
 .AppBarlinkStyle {
   text-decoration: none;
   color: white;
