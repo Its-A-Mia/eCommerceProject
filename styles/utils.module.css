@@ -29,7 +29,7 @@
 .NavBarlinkStyleAlternative {
   text-decoration: none;
   color: var(--font-color);
-  font-size: large;
+  font-size: 1rem;
 }
 
 .NavBarlinkStyleAlternative:hover {

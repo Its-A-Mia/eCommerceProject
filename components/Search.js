@@ -7,7 +7,7 @@ import useDebouncer from './customHooks/useDebouncer';
 
 export default function Search() {
   const hiddenOnMobile = {
-    display: { xs: 'none', sm: 'none', md: 'flex' },
+    display: { xs: 'none', sm: 'flex', md: 'flex' },
   };
 
   const [query, setQuery] = useState('');
@@ -44,7 +44,7 @@ export default function Search() {
 
   return (
     <>
-      <Grid item md={5} sx={hiddenOnMobile}>
+      <Grid item sm={6} md={6} lg={5} sx={hiddenOnMobile}>
         <Box width="100%" position="relative" zIndex="1">
           <TextField
             onFocus={() => setShowSuggestions('block')}
